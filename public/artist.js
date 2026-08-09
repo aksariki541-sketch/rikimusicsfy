@@ -364,8 +364,8 @@ var Artist={
 
         if (navigator.share) {
             navigator.share({
-                title: name + ' - NanzMusify',
-                text: 'Dengarkan lagu & album terbaik dari ' + name + ' di NanzMusify!',
+                title: name + ' - RIKI',
+                text: 'Dengarkan lagu & album terbaik dari ' + name + ' di RIKI!',
                 url: url
             }).catch(function() {});
         } else {

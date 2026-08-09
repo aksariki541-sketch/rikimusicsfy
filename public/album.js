@@ -230,8 +230,8 @@ var Album = {
 
         if (navigator.share) {
             navigator.share({
-                title: title + ' - NanzMusify',
-                text: 'Dengarkan album ' + title + ' di NanzMusify!',
+                title: title + ' - RIKI',
+                text: 'Dengarkan album ' + title + ' di RIKI!',
                 url: url
             }).catch(function() {});
         } else {

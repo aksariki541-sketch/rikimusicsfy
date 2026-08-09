@@ -199,7 +199,7 @@ module.exports = async (req, res) => {
 
         res.status(200).json({
             status: songs.length > 0 || isPlaylist,
-            creator: 'Nanzz',
+            creator: 'RIKI',
             result: {
                 id,
                 title,

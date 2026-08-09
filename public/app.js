@@ -77,7 +77,7 @@ window.addEventListener('appinstalled',function(){
     isStandaloneApp = true;
     var btn=document.getElementById('pwa-install-btn');
     if(btn)btn.classList.add('hidden');
-    showToast('NanzMusify berhasil diinstall!');
+    showToast('RIKI berhasil diinstall!');
 });
 
 function isPwaInstalled() {
@@ -99,7 +99,7 @@ function showPwaRequiredModal() {
         '<div class="space-y-1">'+
             '<h3 class="text-white font-bold text-sm">Install Aplikasi Terlebih Dahulu</h3>'+
             '<p class="text-white/60 text-xs leading-relaxed">'+
-                'Fitur Mode Offline khusus untuk aplikasi PWA. Silakan install NanzMusify ke layar utama terlebih dahulu.'+
+                'Fitur Mode Offline khusus untuk aplikasi PWA. Silakan install RIKI ke layar utama terlebih dahulu.'+
             '</p>'+
         '</div>'+
         '<div class="space-y-2 pt-1">'+
@@ -123,7 +123,7 @@ function installPWA(){
             if(choice.outcome==='accepted') {
                 try { localStorage.setItem('pwa_installed', 'true'); } catch(e){}
                 isStandaloneApp = true;
-                showToast('Menginstall NanzMusify...');
+                showToast('Menginstall RIKI...');
             }
             deferredInstallPrompt=null;
             var btn=document.getElementById('pwa-install-btn');
@@ -379,6 +379,10 @@ var App={
     init(){
         document.documentElement.classList.remove('theme-light');
         localStorage.removeItem('theme');
+        if (typeof Theme !== 'undefined') {
+            Theme.init();
+            Theme.mount();
+        }
 
         gid('nav-container').innerHTML=`
         <div class="fixed bottom-4 left-1/2 -translate-x-1/2 w-[95%] max-w-lg z-40">
@@ -499,23 +503,23 @@ var App={
     },
     autoPlayTrack(videoId){
         fetch(API.search+'?query=https://youtube.com/watch?v='+videoId).then(function(r){return r.json();}).then(function(d){
-            var title='Lagu',artist='NanzMusify',cover=toHDCover('', videoId),artistId='';
+            var title='Lagu',artist='RIKI',cover=toHDCover('', videoId),artistId='';
             if(d.status&&d.result.songs&&d.result.songs.length>0){var song=d.result.songs[0];title=cn(song.title);artist=cn(song.artist);cover=toHDCover(song.thumbnail, videoId);artistId=song.artistId||'';}
             S.ct={id:videoId,videoId:videoId,title:title,artist:artist,cover:cover,artistId:artistId,ytUrl:'https://youtube.com/watch?v='+videoId};
             S.ps='direct';S.pl=[S.ct];S.pi=0;UU();MP.show();resetLyricsUI(videoId);
             FullPlayer.open();loadTrack(S.ct);
         }).catch(function(){
-            S.ct={id:videoId,videoId:videoId,title:'Lagu',artist:'NanzMusify',cover:toHDCover('', videoId),artistId:'',ytUrl:'https://youtube.com/watch?v='+videoId};
+            S.ct={id:videoId,videoId:videoId,title:'Lagu',artist:'RIKI',cover:toHDCover('', videoId),artistId:'',ytUrl:'https://youtube.com/watch?v='+videoId};
             S.ps='direct';S.pl=[S.ct];S.pi=0;UU();MP.show();resetLyricsUI(videoId);
             FullPlayer.open();loadTrack(S.ct);
         });
     },
     showSharePopup(videoId){
         fetch(API.search+'?query=https://youtube.com/watch?v='+videoId).then(function(r){return r.json();}).then(function(d){
-            var title='Lagu',artist='NanzMusify',cover=toHDCover('', videoId);
+            var title='Lagu',artist='RIKI',cover=toHDCover('', videoId);
             if(d.status&&d.result.songs&&d.result.songs.length>0){var song=d.result.songs[0];title=cn(song.title);artist=cn(song.artist);cover=toHDCover(song.thumbnail, videoId);}
             App.renderPopup(videoId,title,artist,cover);
-        }).catch(function(){App.renderPopup(videoId,'Lagu','NanzMusify',toHDCover('', videoId));});
+        }).catch(function(){App.renderPopup(videoId,'Lagu','RIKI',toHDCover('', videoId));});
     },
     renderPopup(videoId,title,artist,cover){
         if(typeof updateOG==='function') updateOG(title, cover, artist);
@@ -586,7 +590,7 @@ var App={
             var isCurrent = (n === t);
 
             if(isCurrent){
-                b.className = 'nav-item group relative flex flex-col items-center justify-center cursor-pointer select-none touch-manipulation py-1.5 px-2.5 sm:px-3 rounded-2xl bg-white/20 text-white font-bold transition-all duration-300 shadow-md scale-105';
+                b.className = 'nav-item riki-nav-active group relative flex flex-col items-center justify-center cursor-pointer select-none touch-manipulation py-1.5 px-2.5 sm:px-3 rounded-2xl bg-white/20 text-white font-bold transition-all duration-300 shadow-md scale-105';
             } else {
                 b.className = 'nav-item group relative flex flex-col items-center justify-center cursor-pointer select-none touch-manipulation py-1.5 px-2 rounded-2xl text-white/50 hover:text-white hover:bg-white/10 transition-all duration-300';
             }

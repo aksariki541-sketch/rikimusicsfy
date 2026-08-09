@@ -1,14 +1,14 @@
 {
-  "id": "musify.nanzz-dev.xyz",
-  "name": "NanzMusify",
-  "short_name": "NanzMusify",
-  "description": "NanzMusify - Streaming Musik YouTube dengan Lirik",
+  "id": "/",
+  "name": "RIKI",
+  "short_name": "RIKI",
+  "description": "RIKI - Streaming Musik YouTube dengan Lirik",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#050507",
-  "theme_color": "#050507",
+  "background_color": "#050713",
+  "theme_color": "#30e5ff",
   "icons": [
     {
       "src": "/logo.png",
