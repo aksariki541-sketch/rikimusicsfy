@@ -136,9 +136,9 @@ self.addEventListener('fetch', (event) => {
         }
         return networkResponse;
       }).catch(() => {
-        // If image fails offline, fallback to logo or FI placeholder
+        // If image fails offline, fallback to PP icon (profile.jpg)
         if (request.headers.get('accept')?.includes('image')) {
-          return caches.match('/logo.png');
+          return caches.match('/profile.jpg').then(function(r){ return r || caches.match('/logo.png'); });
         }
       });
     })

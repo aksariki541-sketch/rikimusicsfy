@@ -67,7 +67,7 @@ function handleImgError(img) {
     if (!img) return;
     var retries = parseInt(img.getAttribute('data-img-retry') || '0', 10);
     if (retries >= 3) {
-        img.src = '/logo.png';
+        img.src = '/profile.jpg';
         return;
     }
     img.setAttribute('data-img-retry', String(retries + 1));
@@ -83,7 +83,7 @@ function handleImgError(img) {
     } else if (orig && img.src !== orig) {
         img.src = orig;
     } else {
-        img.src = '/logo.png';
+        img.src = '/profile.jpg';
     }
 }
 const S={ht:[],sr:[],ar:[],hc:[],hcp:[],hca:[],sq:'',filter:'all',ct:null,pl:[],pi:-1,ps:'',ip:false,il:false,rm:'all',isShuffle:false,currentAccentColor:'#f43f5e',autoNext:true,iv:null,pt:0,pd:0,at:'home',ld:{type:'none',lines:[]},cli:-1,lo:false,lyricOffset:0,playbackRate:1.0,sleepSecondsLeft:0,sleepEndWithTrack:false,volume:1.0,lastVolume:1.0};
@@ -569,7 +569,7 @@ function UB(){
         if(coverOverlay){
             coverOverlay.classList.remove('opacity-0', 'pointer-events-none');
             coverOverlay.classList.add('opacity-100');
-            if(coverIcon) coverIcon.innerHTML='<div class="relative flex items-center justify-center w-14 h-14 rounded-2xl bg-zinc-900/80 border border-white/10 p-2"><img src="/logo.png" class="w-8 h-8 object-contain animate-pulse" alt="Logo"/><div class="absolute inset-0 border-2 border-white/10 border-t-white rounded-2xl animate-spin"></div></div>';
+            if(coverIcon) coverIcon.innerHTML='<div class="relative flex items-center justify-center w-14 h-14 rounded-2xl bg-zinc-900/80 border border-white/10 p-2 overflow-hidden"><img src="/profile.jpg" class="w-10 h-10 object-cover rounded-full animate-pulse" alt="PP"/><div class="absolute inset-0 border-2 border-white/10 border-t-white rounded-2xl animate-spin"></div></div>';
             if(coverText) {
                 coverText.className = 'text-xs font-semibold text-zinc-300 leading-relaxed text-center drop-shadow-md px-2';
                 coverText.innerText='Sabar yaa, server kami perlu waktu buat siapin lagu';
@@ -680,7 +680,7 @@ function setMetaTag(name, content, isProperty) {
 }
 
 function setFavicon(url) {
-    var targetUrl = url || '/logo.png';
+    var targetUrl = url || '/profile.jpg';
 
     // Remove existing favicon tags to force browsers to re-render dynamic favicons
     var existingIcons = document.querySelectorAll("link[rel*='icon']");
@@ -1652,13 +1652,13 @@ function getUserPlaylists(){
         var pls=JSON.parse(localStorage.getItem('riki_playlists')||'[]');
         var changed=false;
         pls.forEach(function(p){
-            if(p.image && (p.image.includes('uZKDQkZ3c5VK.png') || p.image.includes('R0ym4wqfznmp.png') || p.image.includes('logo.png'))){
+            if(p.image && (p.image.includes('uZKDQkZ3c5VK.png') || p.image.includes('R0ym4wqfznmp.png'))){
                 p.image='';
                 changed=true;
             }
             if(p.songs && p.songs.length){
                 p.songs.forEach(function(s){
-                    if(!s.cover || s.cover.includes('uZKDQkZ3c5VK.png') || s.cover.includes('logo.png')){
+                    if(!s.cover || s.cover.includes('uZKDQkZ3c5VK.png')){
                         s.cover = toHDCover('', s.videoId);
                         changed=true;
                     }
