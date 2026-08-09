@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Netlify
+.netlify/
+
+# Build / output
+dist/
+build/
+out/
+.vercel/
+
+# Logs & env
+*.log
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
