@@ -1,8 +1,14 @@
 var Search={
     render(){
         gid('view-search').innerHTML=`
-        <div class="pt-8 pb-3.5 px-4 sticky top-0 z-30 border-b border-white/10 shadow-2xl transition-all" style="background: linear-gradient(180deg, rgba(8, 9, 13, 0.4) 0%, rgba(8, 9, 13, 0.75) 100%), url('/banner.png') center/cover no-repeat; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
-            <h1 class="text-3xl font-black text-white tracking-tight drop-shadow-md mb-3">Cari</h1>
+        <div class="riki-topbar pt-7 pb-4 px-4 sticky top-0 z-30 border-b shadow-2xl transition-all relative" style="background: linear-gradient(180deg, rgba(8, 9, 13, 0.4) 0%, rgba(8, 9, 13, 0.75) 100%), url('/banner.png') center/cover no-repeat;">
+            <div class="flex items-center justify-between gap-3 mb-3">
+                <div>
+                    <p class="riki-eyebrow">EXPLORE THE UNIVERSE</p>
+                    <h1 class="text-2xl font-black text-white tracking-tight mt-1">Cari musik</h1>
+                </div>
+                <button onclick="Theme.open()" class="riki-icon-button" title="Ubah warna" aria-label="Ubah warna tema"><i data-lucide="palette" class="w-4 h-4"></i></button>
+            </div>
             <form id="search-form" class="relative" autocomplete="off">
                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center text-white/60"><i data-lucide="search" class="h-5 w-5"></i></div>
                 <input type="text" id="search-input" class="w-full bg-black/40 backdrop-blur-md border border-white/20 text-white font-medium rounded-2xl pl-12 pr-20 py-3.5 focus:outline-none placeholder:text-white/50" placeholder="Cari lagu, artis, atau album..." autocomplete="off" />

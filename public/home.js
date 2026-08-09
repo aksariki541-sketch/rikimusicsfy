@@ -3,7 +3,7 @@ var Home = {
     loadingCategory: false,
     categories: [
         { name: 'Semua' },
-        { name: 'Developer Profile', icon: 'code' },
+        { name: 'Riki World', icon: 'code' },
         { name: 'Chill', icon: 'coffee' },
         { name: 'Focus', icon: 'brain' },
         { name: 'Commute', icon: 'car' },
@@ -35,17 +35,25 @@ var Home = {
         }).join('');
 
         gid('view-home').innerHTML = `
-        <div class="pt-8 pb-3.5 px-4 sticky top-0 z-30 border-b border-white/10 shadow-2xl transition-all" style="background: linear-gradient(180deg, rgba(8, 9, 13, 0.4) 0%, rgba(8, 9, 13, 0.75) 100%), url('/banner.png') center/cover no-repeat; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
-            <div class="flex justify-between items-center mb-3">
-                <div>
-                    <h1 class="text-3xl font-black text-white tracking-tight drop-shadow-md">NanzMusify</h1>
+        <div class="riki-topbar pt-7 pb-4 px-4 sticky top-0 z-30 border-b shadow-2xl transition-all relative" style="background: linear-gradient(180deg, rgba(8, 9, 13, 0.4) 0%, rgba(8, 9, 13, 0.75) 100%), url('/banner.png') center/cover no-repeat;">
+            <div class="flex justify-between items-center gap-3 mb-3">
+                <div class="riki-brand-row">
+                    <div class="riki-brand-mark" aria-hidden="true">R</div>
+                    <div>
+                        <p class="riki-eyebrow">DIGITAL SOUND UNIVERSE</p>
+                        <h1 class="riki-brand-name">RIKI<span>.</span></h1>
+                        <p class="riki-subline">Music for every mood</p>
+                    </div>
                 </div>
-                <div class="flex items-center gap-2.5">
-                    <button onclick="App.switch('search')" class="w-10 h-10 rounded-2xl bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/90 hover:text-white hover:bg-black/60 active:scale-95 transition-all shadow-lg" title="Cari">
-                        <i data-lucide="search" class="w-5 h-5"></i>
+                <div class="flex items-center gap-2 shrink-0">
+                    <button onclick="App.switch('search')" class="riki-icon-button" title="Cari musik" aria-label="Cari musik">
+                        <i data-lucide="search" class="w-4 h-4"></i>
                     </button>
-                    <button onclick="App.switch('dev')" class="w-10 h-10 rounded-2xl bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/90 hover:text-white hover:bg-black/60 active:scale-95 transition-all shadow-lg" title="Profil">
-                        <i data-lucide="user" class="w-5 h-5"></i>
+                    <button onclick="Theme.open()" class="riki-icon-button" title="Ubah warna" aria-label="Ubah warna tema">
+                        <i data-lucide="palette" class="w-4 h-4"></i>
+                    </button>
+                    <button onclick="App.switch('dev')" class="riki-icon-button" title="Profil Riki" aria-label="Buka profil Riki">
+                        <i data-lucide="user-round" class="w-4 h-4"></i>
                     </button>
                 </div>
             </div>
@@ -86,7 +94,7 @@ var Home = {
         lucide.createIcons();
 
         if (Home.activeCategory && Home.activeCategory !== 'Semua') {
-            if (Home.activeCategory === 'Developer Profile') {
+            if (Home.activeCategory === 'Riki World') {
                 Home.renderDeveloperProfileView();
             } else {
                 Home.displayCategoryView();
@@ -167,7 +175,7 @@ var Home = {
             lucide.createIcons();
         }
 
-        if (catName === 'Developer Profile') {
+        if (catName === 'Riki World') {
             try {
                 var r = await fetch(API.search + '?query=' + encodeURIComponent('XXXTENTACION') + '&type=all');
                 var d = await r.json();
@@ -306,23 +314,21 @@ var Home = {
 
         catView.innerHTML = `
         <div class="space-y-6 pb-6">
-            <div class="glass-strong rounded-3xl p-5 border border-white/15 bg-gradient-to-br from-white/10 via-white/5 to-transparent relative overflow-hidden ">
+            <div class="riki-profile-hero rounded-3xl p-5 relative overflow-hidden">
                 <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left relative z-10">
-                    <div class="relative w-20 h-20 rounded-2xl overflow-hidden border-2 border-white/20  shrink-0 glass">
-                        <img src="/logo.png" class="w-full h-full object-cover" onerror="this.src='${FI}'" />
+                    <div class="riki-profile-photo w-20 h-20 shrink-0">
+                        <img src="/profile.jpg" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='/logo.png';" />
                     </div>
                     <div class="flex-1">
-                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-[10px] font-bold uppercase tracking-wider mb-2">
-                            <i data-lucide="code" class="w-3 h-3"></i> Developer Profile
-                        </div>
-                        <h2 class="text-2xl font-black text-white">Nanzz</h2>
-                        <p class="text-xs text-[#b3b3b3] mt-1 leading-relaxed">Pengembang & Pembuat NanzMusify. Selamat menikmati streaming musik favorit tanpa gangguan!</p>
+                        <p class="riki-eyebrow mb-1">WELCOME TO MY WORLD</p>
+                        <h2 class="text-2xl font-black text-white tracking-tight">RIKI<span style="color:var(--riki-accent)">.</span></h2>
+                        <p class="text-xs text-white/65 mt-1 leading-relaxed">Code, design, technology, and the tracks that make this digital universe feel alive.</p>
                         <div class="flex flex-wrap items-center gap-2 mt-3.5 justify-center sm:justify-start">
-                            <a href="https://whatsapp.com/channel/0029VbCsS2r2phHIV3O0nO1a" target="_blank" class="btn-chrome px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-md active:scale-95 transition-all">
-                                <i data-lucide="message-square" class="w-3.5 h-3.5"></i> Channel WA
+                            <a href="https://protofolioriki.my.id" target="_blank" rel="noopener noreferrer" class="riki-action-primary px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 active:scale-95 transition-all">
+                                <i data-lucide="orbit" class="w-3.5 h-3.5"></i> My Portfolio
                             </a>
-                            <button onclick="App.switch('dev')" class="glass hover:bg-white/10 px-3.5 py-1.5 rounded-full text-xs font-medium text-white hover:text-white flex items-center gap-1.5 active:scale-95 transition-all">
-                                <i data-lucide="info" class="w-3.5 h-3.5"></i> Detail Info
+                            <button onclick="App.switch('dev')" class="btn-chrome px-3.5 py-1.5 rounded-full text-xs font-medium text-white hover:text-white flex items-center gap-1.5 active:scale-95 transition-all">
+                                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> My Universe
                             </button>
                             <button onclick="Home.selectCategory('Semua')" class="glass hover:bg-white/10 px-3 py-1.5 rounded-full text-xs text-[#a0a5b0] hover:text-white flex items-center gap-1">
                                 <i data-lucide="x" class="w-3.5 h-3.5"></i> Reset
@@ -560,7 +566,7 @@ var Home = {
 
     show() {
         if (Home.activeCategory && Home.activeCategory !== 'Semua') {
-            if (Home.activeCategory === 'Developer Profile') {
+            if (Home.activeCategory === 'Riki World') {
                 Home.renderDeveloperProfileView();
             } else {
                 Home.displayCategoryView();

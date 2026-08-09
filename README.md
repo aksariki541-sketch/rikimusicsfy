@@ -1,4 +1,4 @@
-# NanzMusify
+# RIKI
 
 A web music player backed by YouTube Music search/streaming, packaged for
 one-click deployment on **Netlify**.

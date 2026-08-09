@@ -1,6 +1,6 @@
 {
-  "name": "NanzMusify",
-  "description": "NanzMusify - Web Music Player",
+  "name": "RIKI",
+  "description": "RIKI - Web Music Player",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

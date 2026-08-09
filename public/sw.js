@@ -1,5 +1,5 @@
-const CACHE_STATIC_NAME = 'nanzmusify-static-v2';
-const CACHE_DATA_NAME = 'nanzmusify-api-v2';
+const CACHE_STATIC_NAME = 'riki-musify-static-v3';
+const CACHE_DATA_NAME = 'riki-musify-api-v3';
 
 const STATIC_ASSETS = [
   '/',
@@ -18,6 +18,9 @@ const STATIC_ASSETS = [
   '/album.js',
   '/artist.js',
   '/profile.js',
+  '/riki-theme.css',
+  '/theme.js',
+  '/profile.jpg',
   'https://cdn.tailwindcss.com',
   'https://unpkg.com/lucide@latest'
 ];

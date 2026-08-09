@@ -1,7 +1,23 @@
 // ============================================================
-// NANZMUSIFY - CORE PLAYER (FULL FIX)
+// RIKI - CORE PLAYER (FULL FIX)
 // ============================================================
 const API={search:'/api/search',artist:'/api/artist',suggest:'/api/suggest',lyrics:'/api/lyrics',ytplay:'/api/ytplay'};
+
+// Keep personal settings and playlists when upgrading from the pre-RIKI app.
+(function migrateRikiStorage() {
+    var keys = ['playback_rate', 'auto_next', 'volume', 'liked_songs', 'liked_artists', 'playlists'];
+    try {
+        keys.forEach(function(key) {
+            var currentKey = 'riki_' + key;
+            var legacyKey = 'nanzz_' + key;
+            if (localStorage.getItem(currentKey) === null) {
+                var legacyValue = localStorage.getItem(legacyKey);
+                if (legacyValue !== null) localStorage.setItem(currentKey, legacyValue);
+            }
+        });
+    } catch (error) {}
+}());
+
 const FI='data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%22%20height%3D%22100%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2523374151%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20width%3D%22100%2525%22%20height%3D%22100%2525%22%20fill%3D%22%252318181b%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%2210%22%20fill%3D%22%252327272a%22%20stroke%3D%22none%22%2F%3E%3Cpath%20d%3D%22M9%2017V5l10-2v12%22%20stroke%3D%22%252352525b%22%20stroke-width%3D%221%22%2F%3E%3Ccircle%20cx%3D%226%22%20cy%3D%2217%22%20r%3D%223%22%20fill%3D%22%252352525b%22%20stroke%3D%22none%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2215%22%20r%3D%223%22%20fill%3D%22%252352525b%22%20stroke%3D%22none%22%2F%3E%3C%2Fsvg%3E';
 
 function toWebp(url) {
@@ -71,8 +87,8 @@ function handleImgError(img) {
     }
 }
 const S={ht:[],sr:[],ar:[],hc:[],hcp:[],hca:[],sq:'',filter:'all',ct:null,pl:[],pi:-1,ps:'',ip:false,il:false,rm:'all',isShuffle:false,currentAccentColor:'#f43f5e',autoNext:true,iv:null,pt:0,pd:0,at:'home',ld:{type:'none',lines:[]},cli:-1,lo:false,lyricOffset:0,playbackRate:1.0,sleepSecondsLeft:0,sleepEndWithTrack:false,volume:1.0,lastVolume:1.0};
-try{S.playbackRate=parseFloat(localStorage.getItem('nanzz_playback_rate'))||1.0;}catch(e){S.playbackRate=1.0;}
-try{var storedAutoNext = localStorage.getItem('nanzz_auto_next');if(storedAutoNext!==null){S.autoNext = storedAutoNext==='true';}}catch(e){}
+try{S.playbackRate=parseFloat(localStorage.getItem('riki_playback_rate'))||1.0;}catch(e){S.playbackRate=1.0;}
+try{var storedAutoNext = localStorage.getItem('riki_auto_next');if(storedAutoNext!==null){S.autoNext = storedAutoNext==='true';}}catch(e){}
 function fm(s){if(isNaN(s))return"0:00";const m=Math.floor(s/60),se=Math.floor(s%60);return m+':'+(se<10?'0':'')+se;}
 function es(t){if(!t)return'';const d=document.createElement('div');d.textContent=t;return d.innerHTML;}
 function esJs(t){if(!t)return'';return String(t).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;').replace(/\n/g,' ').replace(/\r/g,'');}
@@ -80,9 +96,9 @@ function cn(t){if(!t)return'Unknown';return t.replace(/[^\x20-\x7E\xA0-\xFF\u010
 function gid(id){return document.getElementById(id);}
 
 function updateOG(title,image){
-    var t=document.querySelector('meta[property="og:title"]');if(!t){t=document.createElement('meta');t.setAttribute('property','og:title');document.head.appendChild(t);}t.setAttribute('content',title+' | NanzMusify');
+    var t=document.querySelector('meta[property="og:title"]');if(!t){t=document.createElement('meta');t.setAttribute('property','og:title');document.head.appendChild(t);}t.setAttribute('content',title+' | RIKI');
     var i=document.querySelector('meta[property="og:image"]');if(!i){i=document.createElement('meta');i.setAttribute('property','og:image');document.head.appendChild(i);}i.setAttribute('content',image||FI);
-    document.title=title+' - NanzMusify';
+    document.title=title+' - RIKI';
 }
 
 // ---- AUDIO ENGINE (elemen <audio> native, sumber stream dari /api/ytplay) ----
@@ -105,7 +121,7 @@ AU.addEventListener('error',function(){if(AU.src){S.il=false;S.ip=false;UB();}})
 
 // ---- VOLUME CONTROL ENGINE (SPOTIFY STYLE) ----
 try {
-    var storedVol = parseFloat(localStorage.getItem('nanzz_volume'));
+    var storedVol = parseFloat(localStorage.getItem('riki_volume'));
     if (!isNaN(storedVol) && storedVol >= 0 && storedVol <= 1) {
         S.volume = storedVol;
     } else {
@@ -119,7 +135,7 @@ function applyVolume(vol) {
     vol = Math.max(0, Math.min(1, vol));
     S.volume = vol;
     if (AU) AU.volume = vol;
-    try { localStorage.setItem('nanzz_volume', String(vol)); } catch(e){}
+    try { localStorage.setItem('riki_volume', String(vol)); } catch(e){}
     updateVolumeUI();
 }
 
@@ -728,8 +744,8 @@ function updateCoverWithTransition(imgEl, newSrc, origCover, useScale) {
 function updateOG(title, cover, artist) {
     if (title && cover) {
         var fullTitle = artist ? (title + ' - ' + artist) : title;
-        var docTitle = fullTitle + ' | NanzMusify';
-        var description = 'Dengarkan ' + fullTitle + ' di NanzMusify';
+        var docTitle = fullTitle + ' | RIKI';
+        var description = 'Dengarkan ' + fullTitle + ' di RIKI';
 
         document.title = docTitle;
 
@@ -747,17 +763,17 @@ function updateOG(title, cover, artist) {
         setFavicon(cover);
     } else {
         var defaultCover = 'https://www.gobox.my.id/file/R0ym4wqfznmp.png';
-        document.title = 'NanzMusify';
+        document.title = 'RIKI';
 
-        setMetaTag('og:title', 'NanzMusify', true);
-        setMetaTag('og:description', 'NanzMusify - Web Music Player', true);
+        setMetaTag('og:title', 'RIKI', true);
+        setMetaTag('og:description', 'RIKI - Web Music Player', true);
         setMetaTag('og:image', defaultCover, true);
         setMetaTag('og:image:width', '600', true);
         setMetaTag('og:image:height', '600', true);
         setMetaTag('og:url', location.href, true);
         setMetaTag('twitter:card', 'summary_large_image', false);
-        setMetaTag('twitter:title', 'NanzMusify', false);
-        setMetaTag('twitter:description', 'NanzMusify - Web Music Player', false);
+        setMetaTag('twitter:title', 'RIKI', false);
+        setMetaTag('twitter:description', 'RIKI - Web Music Player', false);
         setMetaTag('twitter:image', defaultCover, false);
 
         setFavicon(null);
@@ -767,8 +783,8 @@ function updateOG(title, cover, artist) {
 function updateOGForArtist(artistName, coverUrl) {
     if (!artistName) return;
     var name = cn(artistName);
-    var docTitle = name + ' - Artist | NanzMusify';
-    var description = 'Dengarkan lagu dan album terbaik dari ' + name + ' di NanzMusify';
+    var docTitle = name + ' - Artist | RIKI';
+    var description = 'Dengarkan lagu dan album terbaik dari ' + name + ' di RIKI';
     var cover = (coverUrl && coverUrl !== FI) ? coverUrl : 'https://www.gobox.my.id/file/R0ym4wqfznmp.png';
 
     document.title = docTitle;
@@ -791,8 +807,8 @@ function updateOGForAlbum(albumTitle, coverUrl, artistName) {
     if (!albumTitle) return;
     var title = albumTitle;
     var fullTitle = artistName ? (title + ' - ' + artistName) : title;
-    var docTitle = fullTitle + ' - Album | NanzMusify';
-    var description = 'Dengarkan album ' + fullTitle + ' di NanzMusify';
+    var docTitle = fullTitle + ' - Album | RIKI';
+    var description = 'Dengarkan album ' + fullTitle + ' di RIKI';
     var cover = (coverUrl && coverUrl !== FI) ? coverUrl : 'https://www.gobox.my.id/file/R0ym4wqfznmp.png';
 
     document.title = docTitle;
@@ -1062,7 +1078,7 @@ function updateShuffleUI(){
 }
 function toggleAutoNext(){
     S.autoNext = !S.autoNext;
-    try { localStorage.setItem('nanzz_auto_next', S.autoNext); } catch(e) {}
+    try { localStorage.setItem('riki_auto_next', S.autoNext); } catch(e) {}
     if(typeof showToast === 'function'){
         showToast(S.autoNext ? 'Auto Next diaktifkan' : 'Auto Next dimatikan');
     }
@@ -1518,10 +1534,10 @@ function toggleLyrics(){
 
 // LIKED SONGS SYSTEM
 function getLikedSongs(){
-    try{return JSON.parse(localStorage.getItem('nanzz_liked_songs')||'[]');}catch(e){return[];}
+    try{return JSON.parse(localStorage.getItem('riki_liked_songs')||'[]');}catch(e){return[];}
 }
 function saveLikedSongs(songs){
-    try{localStorage.setItem('nanzz_liked_songs',JSON.stringify(songs));}catch(e){}
+    try{localStorage.setItem('riki_liked_songs',JSON.stringify(songs));}catch(e){}
 }
 function isLikedSong(videoId){
     if(!videoId) return false;
@@ -1566,10 +1582,10 @@ function toggleCurrentLike(){
 
 // LIKED ARTISTS SYSTEM
 function getLikedArtists(){
-    try{return JSON.parse(localStorage.getItem('nanzz_liked_artists')||'[]');}catch(e){return[];}
+    try{return JSON.parse(localStorage.getItem('riki_liked_artists')||'[]');}catch(e){return[];}
 }
 function saveLikedArtists(artists){
-    try{localStorage.setItem('nanzz_liked_artists',JSON.stringify(artists));}catch(e){}
+    try{localStorage.setItem('riki_liked_artists',JSON.stringify(artists));}catch(e){}
 }
 function isArtistLiked(artistId){
     if(!artistId) return false;
@@ -1633,7 +1649,7 @@ function updateLikeButtons(){
 // PLAYLIST SYSTEM
 function getUserPlaylists(){
     try{
-        var pls=JSON.parse(localStorage.getItem('nanzz_playlists')||'[]');
+        var pls=JSON.parse(localStorage.getItem('riki_playlists')||'[]');
         var changed=false;
         pls.forEach(function(p){
             if(p.image && (p.image.includes('uZKDQkZ3c5VK.png') || p.image.includes('R0ym4wqfznmp.png') || p.image.includes('logo.png'))){
@@ -1654,12 +1670,12 @@ function getUserPlaylists(){
             }
         });
         if(changed){
-            localStorage.setItem('nanzz_playlists',JSON.stringify(pls));
+            localStorage.setItem('riki_playlists',JSON.stringify(pls));
         }
         return pls;
     }catch(e){return[];}
 }
-function saveUserPlaylists(pls){try{localStorage.setItem('nanzz_playlists',JSON.stringify(pls));}catch(e){}}
+function saveUserPlaylists(pls){try{localStorage.setItem('riki_playlists',JSON.stringify(pls));}catch(e){}}
 function createPlaylist(name,image){var pls=getUserPlaylists();var id='pl_'+Date.now();pls.push({id:id,name:name,image:image||'',songs:[]});saveUserPlaylists(pls);return id;}
 function updateUserPlaylist(id,name,image){var pls=getUserPlaylists();var pl=pls.find(function(p){return p.id===id;});if(!pl)return;if(name)pl.name=name;if(image)pl.image=image;saveUserPlaylists(pls);}
 function deleteUserPlaylist(id){var pls=getUserPlaylists().filter(function(p){return p.id!==id;});saveUserPlaylists(pls);}
@@ -1966,7 +1982,7 @@ function openPlaybackSpeed() {
 function setPlaybackSpeed(speed) {
     S.playbackRate = speed;
     try {
-        localStorage.setItem('nanzz_playback_rate', speed);
+        localStorage.setItem('riki_playback_rate', speed);
     } catch(e) {}
     
     applyPlaybackSpeed();
@@ -2154,7 +2170,7 @@ function openShareCard() {
             '<div class="flex justify-between w-full text-[9px] text-[#6b7280] font-mono mt-1"><span>1:48</span><span>2:56</span></div>' +
             '<div class="border-t border-white/5 w-full pt-3 mt-1 flex items-center justify-center gap-1.5">' +
                 '<i data-lucide="music" class="w-3.5 h-3.5 text-[#a0a5b0]"></i>' +
-                '<span class="text-[10px] text-[#6b7280] tracking-wider font-semibold uppercase">NanzMusify Web App</span>' +
+                '<span class="text-[10px] text-[#6b7280] tracking-wider font-semibold uppercase">RIKI Web App</span>' +
             '</div>' +
         '</div>' +
         
@@ -2193,7 +2209,7 @@ function triggerNativeShare() {
     if (navigator.share) {
         navigator.share({
             title: S.ct.title,
-            text: 'Dengarkan ' + S.ct.title + ' - ' + S.ct.artist + ' di NanzMusify!',
+            text: 'Dengarkan ' + S.ct.title + ' - ' + S.ct.artist + ' di RIKI!',
             url: url
         }).catch(function() {});
     } else {
@@ -2257,12 +2273,12 @@ function downloadShareCard() {
         
         ctx.fillStyle = isLight ? '#a0aec0' : '#4a5568';
         ctx.font = '16px monospace';
-        ctx.fillText('DIDENGARKAN DI NANZMUSIFY', 300, 710);
+        ctx.fillText('DIDENGARKAN DI RIKI', 300, 710);
         
         try {
             var dataUrl = canvas.toDataURL('image/png');
             var a = document.createElement('a');
-            a.download = S.ct.title.replace(/[^a-zA-Z0-9]/g, '_') + '_nanzmusify.png';
+            a.download = S.ct.title.replace(/[^a-zA-Z0-9]/g, '_') + '_riki-musify.png';
             a.href = dataUrl;
             a.click();
             showToast('Berhasil mengunduh Share Card!');
@@ -2282,12 +2298,12 @@ function downloadShareCard() {
         
         ctx.fillStyle = isLight ? '#a0aec0' : '#4a5568';
         ctx.font = '16px monospace';
-        ctx.fillText('DIDENGARKAN DI NANZMUSIFY', 300, 710);
+        ctx.fillText('DIDENGARKAN DI RIKI', 300, 710);
         
         try {
             var dataUrl = canvas.toDataURL('image/png');
             var a = document.createElement('a');
-            a.download = S.ct.title.replace(/[^a-zA-Z0-9]/g, '_') + '_nanzmusify.png';
+            a.download = S.ct.title.replace(/[^a-zA-Z0-9]/g, '_') + '_riki-musify.png';
             a.href = dataUrl;
             a.click();
             showToast('Berhasil mengunduh Share Card (tanpa cover)!');
