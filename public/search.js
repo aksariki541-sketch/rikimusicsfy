@@ -3,13 +3,23 @@ var Search={
         gid('view-search').innerHTML=`
         <div class="riki-topbar pt-[max(1.6rem,env(safe-area-inset-top))] pb-3 px-4 sticky top-0 z-30 border-b">
             <div class="flex items-center justify-between gap-3 mb-3">
-                <div class="min-w-0">
-                    <p class="riki-eyebrow">EXPLORE UNIVERSE</p>
-                    <h1 class="text-[1.35rem] font-black tracking-tight mt-1">Cari musik</h1>
+                <div class="riki-brand-row min-w-0 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-white/20 shadow-[0_0_0_4px_rgba(255,255,255,0.06)] bg-white/10 shrink-0 relative flex items-center justify-center">
+                        <span class="text-white font-bold text-sm select-none">R</span>
+                        <img src="/profile.jpg" alt="PP" class="absolute inset-0 w-full h-full object-cover z-10" onerror="handlePPError(this)" />
+                    </div>
+                    <div class="min-w-0">
+                        <p class="riki-eyebrow text-[9px] leading-none">RIKI // EXPLORE UNIVERSE</p>
+                        <h1 class="riki-brand-name text-[1.45rem] font-extrabold tracking-tight leading-none mt-1">RIKI<span>.</span></h1>
+                        <p class="text-[10px] text-white/50 font-mono tracking-tight mt-0.5">ICON = PP • Portfolio</p>
+                    </div>
                 </div>
-                <div class="flex items-center gap-1.5">
-                    <div class="w-7 h-7 rounded-full overflow-hidden border border-white/10"><img src="/profile.jpg" alt="PP" class="w-full h-full object-cover" /></div>
+                <div class="flex items-center gap-1.5 shrink-0">
                     <button onclick="Theme.open()" class="riki-icon-button w-9 h-9 rounded-full" aria-label="Theme"><i data-lucide="palette" class="w-4 h-4"></i></button>
+                    <button onclick="App.switch('dev')" class="riki-icon-button w-9 h-9 rounded-full overflow-hidden p-0 border-white/15 relative flex items-center justify-center bg-white/10" aria-label="Profile">
+                        <span class="text-white font-bold text-xs select-none">R</span>
+                        <img src="/profile.jpg" alt="PP" class="absolute inset-0 w-full h-full object-cover z-10" onerror="handlePPError(this)" />
+                    </button>
                 </div>
             </div>
             <form id="search-form" class="relative" autocomplete="off">

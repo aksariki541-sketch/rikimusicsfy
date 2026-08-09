@@ -1,8 +1,9 @@
-const CACHE_STATIC_NAME = 'riki-musify-static-v3';
-const CACHE_DATA_NAME = 'riki-musify-api-v3';
+const CACHE_STATIC_NAME = 'riki-musify-static-v4-pp-portfolio';
+const CACHE_DATA_NAME = 'riki-musify-api-v4-pp-portfolio';
 
 const STATIC_ASSETS = [
   '/',
+  '/?source=pwa',
   '/index.html',
   '/manifest.json',
   '/logo.png',

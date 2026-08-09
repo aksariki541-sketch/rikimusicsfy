@@ -10,6 +10,21 @@ if (isStandaloneApp) {
     isStandaloneApp = true;
 }
 
+function handlePPError(img) {
+    if (!img) return;
+    img.style.display = 'none';
+    if (img.parentNode) {
+        var rSpan = img.parentNode.querySelector('.riki-fallback-r');
+        if (!rSpan) {
+            rSpan = document.createElement('span');
+            rSpan.className = 'riki-fallback-r absolute inset-0 flex items-center justify-center text-white font-bold text-sm select-none bg-white/10';
+            rSpan.textContent = 'R';
+            img.parentNode.appendChild(rSpan);
+        }
+    }
+}
+window.handlePPError = handlePPError;
+
 function showToast(msg) {
     var existing = document.getElementById('global-app-toast');
     if (existing) existing.remove();
@@ -68,21 +83,38 @@ document.addEventListener('DOMContentLoaded', updateOnlineOfflineStatus);
 window.addEventListener('beforeinstallprompt',function(e){
     e.preventDefault();
     deferredInstallPrompt=e;
-    var btn=document.getElementById('pwa-install-btn');
-    if(btn&&!isStandaloneApp)btn.classList.remove('hidden');
+    updatePwaInstallButtonState();
 });
 window.addEventListener('appinstalled',function(){
     deferredInstallPrompt=null;
     try { localStorage.setItem('pwa_installed', 'true'); } catch(e){}
     isStandaloneApp = true;
-    var btn=document.getElementById('pwa-install-btn');
-    if(btn)btn.classList.add('hidden');
+    updatePwaInstallButtonState();
     showToast('RIKI berhasil diinstall!');
 });
 
 function isPwaInstalled() {
     return isStandaloneApp || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true || localStorage.getItem('pwa_installed') === 'true';
 }
+window.isPwaInstalled = isPwaInstalled;
+
+function updatePwaInstallButtonState() {
+    var btn = document.getElementById('pwa-install-btn');
+    if (!btn) return;
+    btn.classList.remove('hidden');
+    var isInstalled = isPwaInstalled();
+    if (isInstalled) {
+        btn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i> Terinstall ✓';
+        btn.className = 'h-[2.5rem] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 active:scale-95 cursor-pointer';
+        btn.onclick = function() { showToast('RIKI sudah terinstall di perangkat Anda ✓'); };
+    } else {
+        btn.innerHTML = '<i data-lucide="download" class="w-4 h-4"></i> Install PWA';
+        btn.className = 'h-[2.5rem] bg-white text-black font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 active:scale-95 cursor-pointer';
+        btn.onclick = function() { installPWA(); };
+    }
+    if (window.lucide) lucide.createIcons();
+}
+window.updatePwaInstallButtonState = updatePwaInstallButtonState;
 
 function showPwaRequiredModal() {
     var existing = document.getElementById('pwa-required-modal');
@@ -126,8 +158,7 @@ function installPWA(){
                 showToast('Menginstall RIKI...');
             }
             deferredInstallPrompt=null;
-            var btn=document.getElementById('pwa-install-btn');
-            if(btn)btn.classList.add('hidden');
+            updatePwaInstallButtonState();
         });
     }else if(isIOSDevice){
         showToast('Tap ikon Bagikan lalu pilih "Add to Home Screen"');

@@ -3,12 +3,12 @@
   "name": "RIKI",
   "short_name": "RIKI",
   "description": "RIKI — Digital Sound Universe",
-  "start_url": "/",
+  "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#050507",
-  "theme_color": "#ffffff",
+  "theme_color": "#050507",
   "icons": [
     {
       "src": "/profile.jpg",
@@ -20,7 +20,7 @@
       "src": "/profile.jpg",
       "sizes": "512x512",
       "type": "image/jpeg",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/logo.png",
@@ -33,6 +33,12 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
