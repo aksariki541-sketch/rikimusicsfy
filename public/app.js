@@ -385,31 +385,33 @@ var App={
         }
 
         gid('nav-container').innerHTML=`
-        <div class="fixed bottom-4 left-1/2 -translate-x-1/2 w-[95%] max-w-lg z-40">
-            <div class="glass-dock rounded-3xl py-1 px-1.5 flex items-center justify-between shadow-2xl">
-                <button onclick="App.switch('home')" id="nav-home" class="nav-item group relative flex flex-col items-center justify-center cursor-pointer select-none touch-manipulation py-1.5 px-2 rounded-2xl transition-all duration-300 active:scale-95">
-                    <i data-lucide="home" class="w-4 h-4 sm:w-5 sm:h-5 transition-all duration-300"></i>
-                    <span class="nav-label text-[9px] font-medium transition-all duration-300 mt-0.5">Home</span>
+        <div class="fixed bottom-3.5 left-1/2 -translate-x-1/2 w-[94%] max-w-[420px] z-40">
+            <div class="glass-dock rounded-[1.4rem] py-1 px-1 flex items-center justify-between">
+                <button onclick="App.switch('home')" id="nav-home" class="nav-item flex flex-col items-center justify-center cursor-pointer select-none py-1.5 px-2.5 rounded-xl transition-all duration-200 active:scale-95 will-change-transform">
+                    <i data-lucide="home" class="w-4 h-4"></i>
+                    <span class="nav-label text-[9px] font-medium mt-0.5">Home</span>
                 </button>
-                <button onclick="App.switch('search')" id="nav-search" class="nav-item group relative flex flex-col items-center justify-center cursor-pointer select-none touch-manipulation py-1.5 px-2 rounded-2xl transition-all duration-300 active:scale-95">
-                    <i data-lucide="search" class="w-4 h-4 sm:w-5 sm:h-5 transition-all duration-300"></i>
-                    <span class="nav-label text-[9px] font-medium transition-all duration-300 mt-0.5">Search</span>
+                <button onclick="App.switch('search')" id="nav-search" class="nav-item flex flex-col items-center justify-center cursor-pointer select-none py-1.5 px-2.5 rounded-xl transition-all duration-200 active:scale-95 will-change-transform">
+                    <i data-lucide="search" class="w-4 h-4"></i>
+                    <span class="nav-label text-[9px] font-medium mt-0.5">Search</span>
                 </button>
-                <button onclick="App.switch('library')" id="nav-library" class="nav-item group relative flex flex-col items-center justify-center cursor-pointer select-none touch-manipulation py-1.5 px-2 rounded-2xl transition-all duration-300 active:scale-95">
-                    <i data-lucide="library" class="w-4 h-4 sm:w-5 sm:h-5 transition-all duration-300"></i>
-                    <span class="nav-label text-[9px] font-medium transition-all duration-300 mt-0.5">Library</span>
+                <button onclick="App.switch('library')" id="nav-library" class="nav-item flex flex-col items-center justify-center cursor-pointer select-none py-1.5 px-2.5 rounded-xl transition-all duration-200 active:scale-95 will-change-transform">
+                    <i data-lucide="library" class="w-4 h-4"></i>
+                    <span class="nav-label text-[9px] font-medium mt-0.5">Library</span>
                 </button>
-                <button onclick="App.switch('offline')" id="nav-offline" class="nav-item group relative flex flex-col items-center justify-center cursor-pointer select-none touch-manipulation py-1.5 px-2 rounded-2xl transition-all duration-300 active:scale-95">
-                    <i data-lucide="wifi-off" class="w-4 h-4 sm:w-5 sm:h-5 transition-all duration-300"></i>
-                    <span class="nav-label text-[9px] font-medium transition-all duration-300 mt-0.5">Offline</span>
+                <button onclick="App.switch('offline')" id="nav-offline" class="nav-item flex flex-col items-center justify-center cursor-pointer select-none py-1.5 px-2.5 rounded-xl transition-all duration-200 active:scale-95 will-change-transform">
+                    <i data-lucide="wifi-off" class="w-4 h-4"></i>
+                    <span class="nav-label text-[9px] font-medium mt-0.5">Offline</span>
                 </button>
-                <button onclick="App.switch('liked')" id="nav-liked" class="nav-item group relative flex flex-col items-center justify-center cursor-pointer select-none touch-manipulation py-1.5 px-2 rounded-2xl transition-all duration-300 active:scale-95">
-                    <i data-lucide="heart" class="w-4 h-4 sm:w-5 sm:h-5 transition-all duration-300"></i>
-                    <span class="nav-label text-[9px] font-medium transition-all duration-300 mt-0.5">Liked</span>
+                <button onclick="App.switch('liked')" id="nav-liked" class="nav-item flex flex-col items-center justify-center cursor-pointer select-none py-1.5 px-2.5 rounded-xl transition-all duration-200 active:scale-95 will-change-transform">
+                    <i data-lucide="heart" class="w-4 h-4"></i>
+                    <span class="nav-label text-[9px] font-medium mt-0.5">Liked</span>
                 </button>
-                <button onclick="App.switch('dev')" id="nav-dev" class="nav-item group relative flex flex-col items-center justify-center cursor-pointer select-none touch-manipulation py-1.5 px-2 rounded-2xl transition-all duration-300 active:scale-95">
-                    <i data-lucide="user" class="w-4 h-4 sm:w-5 sm:h-5 transition-all duration-300"></i>
-                    <span class="nav-label text-[9px] font-medium transition-all duration-300 mt-0.5">Profile</span>
+                <button onclick="App.switch('dev')" id="nav-dev" class="nav-item flex flex-col items-center justify-center cursor-pointer select-none py-1.5 px-1.5 rounded-xl transition-all duration-200 active:scale-95 will-change-transform overflow-hidden">
+                    <div class="w-7 h-7 rounded-full overflow-hidden border border-white/15 bg-[#15151a] flex items-center justify-center">
+                        <img src="/profile.jpg" alt="PP" class="w-full h-full object-cover" />
+                    </div>
+                    <span class="nav-label text-[8px] font-medium mt-0.5 leading-none">You</span>
                 </button>
             </div>
         </div>`;
@@ -587,12 +589,21 @@ var App={
         ['home','search','library','offline','liked','dev'].forEach(function(n){
             var b=gid('nav-'+n);
             if(!b)return;
-            var isCurrent = (n === t);
-
+            var isCurrent=(n===t);
+            if(n==='dev'){
+                if(isCurrent){
+                    b.className='nav-item riki-nav-active flex flex-col items-center justify-center cursor-pointer select-none py-1.5 px-1.5 rounded-xl bg-white text-black font-bold transition-all duration-200 active:scale-95 will-change-transform overflow-hidden';
+                    var imgWrap=b.querySelector('div'); if(imgWrap){ imgWrap.className='w-7 h-7 rounded-full overflow-hidden border border-black/10 bg-black/5 flex items-center justify-center'; }
+                } else {
+                    b.className='nav-item flex flex-col items-center justify-center cursor-pointer select-none py-1.5 px-1.5 rounded-xl text-white/50 hover:text-white hover:bg-white/10 transition-all duration-200 will-change-transform overflow-hidden';
+                    var imgWrap=b.querySelector('div'); if(imgWrap){ imgWrap.className='w-7 h-7 rounded-full overflow-hidden border border-white/15 bg-[#15151a] flex items-center justify-center'; }
+                }
+                continue;
+            }
             if(isCurrent){
-                b.className = 'nav-item riki-nav-active group relative flex flex-col items-center justify-center cursor-pointer select-none touch-manipulation py-1.5 px-2.5 sm:px-3 rounded-2xl bg-white/20 text-white font-bold transition-all duration-300 shadow-md scale-105';
+                b.className='nav-item riki-nav-active flex flex-col items-center justify-center cursor-pointer select-none py-1.5 px-2.5 rounded-xl bg-white text-black font-bold transition-all duration-200 will-change-transform';
             } else {
-                b.className = 'nav-item group relative flex flex-col items-center justify-center cursor-pointer select-none touch-manipulation py-1.5 px-2 rounded-2xl text-white/50 hover:text-white hover:bg-white/10 transition-all duration-300';
+                b.className='nav-item flex flex-col items-center justify-center cursor-pointer select-none py-1.5 px-2.5 rounded-xl text-white/50 hover:text-white hover:bg-white/10 transition-all duration-200 will-change-transform';
             }
         });
 
@@ -606,16 +617,15 @@ var App={
         var popup = document.createElement('div');
         popup.id = 'v2-popup';
         popup.className = 'fixed inset-0 z-[400] flex items-center justify-center bg-black/80 px-4';
-        ;
         popup.innerHTML = `
-            <div class="glass-strong w-full max-w-sm rounded-3xl p-6 border border-white/10 text-center relative overflow-hidden" style="animation: slideUp 0.3s ease-out forwards;">
-                <!-- Header -->
-                <div class="relative w-16 h-16 rounded-full mx-auto mb-4 bg-gradient-to-tr from-rose-500 to-amber-500 flex items-center justify-center  ">
-                    <i data-lucide="sparkles" class="w-8 h-8 text-white"></i>
+            <div class="bg-[#0e0e12] w-full max-w-sm rounded-[1.2rem] p-6 border border-white/10 text-center relative overflow-hidden" style="animation: slideUp 0.26s cubic-bezier(.25,1,.5,1) forwards;">
+                <!-- Header - PP -->
+                <div class="relative w-16 h-16 rounded-full mx-auto mb-4 overflow-hidden border border-white/15">
+                    <img src="/profile.jpg" alt="PP" class="w-full h-full object-cover" />
                 </div>
                 
-                <h2 class="text-2xl font-black chrome-text mb-1">New Version v2</h2>
-                <p class="text-white/70 text-xs mb-5">Berikut adalah fitur dan pembaruan terbaru:</p>
+                <h2 class="text-xl font-black tracking-tight text-white mb-1">RIKI • Portfolio Edition</h2>
+                <p class="text-white/60 text-[11px] font-mono mb-5">Ikon = PP • Animasi 60fps • Desain protofolioriki.my.id</p>
                 
                 <!-- Features list -->
                 <div class="space-y-4 text-left mb-6 max-h-[250px] overflow-y-auto pr-1">
@@ -702,7 +712,7 @@ var splashDismissed = false;
 
 function hideSplashScreen() {
     if (splashDismissed) return;
-    var minDuration = 1000;
+    var minDuration = 600;
     var elapsed = Date.now() - splashStartTime;
     if (elapsed < minDuration) {
         setTimeout(hideSplashScreen, minDuration - elapsed);
@@ -712,11 +722,10 @@ function hideSplashScreen() {
     var sp = gid('splash-screen');
     if (!sp) return;
     sp.classList.add('hide');
-    setTimeout(function() { 
-        if (sp && sp.parentNode) sp.parentNode.removeChild(sp); 
-        // Trigger V2 Update popup here
+    setTimeout(function() {
+        if (sp && sp.parentNode) sp.parentNode.removeChild(sp);
         App.showV2Popup();
-    }, 400);
+    }, 260);
 }
 
 (function(){

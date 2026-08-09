@@ -3,107 +3,91 @@ var Profile = {
         var el = gid('view-dev');
         if (!el) return;
 
-        var swatches = (typeof Theme !== 'undefined' && Theme.swatchesMarkup)
-            ? Theme.swatchesMarkup(true)
-            : '';
+        var swatches = (typeof Theme !== 'undefined' && Theme.swatchesMarkup) ? Theme.swatchesMarkup(true) : '';
         var standalone = typeof isStandaloneApp !== 'undefined' && isStandaloneApp;
-        var serviceWorkerText = 'serviceWorker' in navigator ? 'Ready' : 'Tidak didukung';
 
         el.innerHTML = `
-        <div class="riki-topbar pt-7 pb-4 px-4 sticky top-0 z-30 border-b shadow-2xl transition-all relative" style="background: linear-gradient(180deg, rgba(8, 9, 13, 0.4) 0%, rgba(8, 9, 13, 0.75) 100%), url('/banner.png') center/cover no-repeat;">
+        <div class="riki-topbar pt-[max(1.6rem,env(safe-area-inset-top))] pb-3 px-4 sticky top-0 z-30 border-b">
             <div class="flex items-center justify-between gap-3">
                 <div>
                     <p class="riki-eyebrow">RIKI // PROFILE</p>
-                    <h1 class="text-2xl font-black text-white tracking-tight mt-1">My digital universe</h1>
+                    <h1 class="text-[1.35rem] font-black tracking-tight mt-1">My digital universe</h1>
                 </div>
-                <button onclick="Theme.open()" class="riki-icon-button" title="Ubah warna" aria-label="Ubah warna tema">
-                    <i data-lucide="palette" class="w-4 h-4"></i>
-                </button>
+                <button onclick="Theme.open()" class="riki-icon-button w-9 h-9 rounded-full" aria-label="Tema"><i data-lucide="palette" class="w-4 h-4"></i></button>
             </div>
         </div>
 
-        <main class="riki-profile-wrap">
-            <section class="riki-profile-hero">
-                <div class="riki-profile-content">
-                    <div class="riki-profile-photo">
-                        <img src="/profile.jpg" alt="Foto profil Riki" onerror="this.onerror=null;this.src='/logo.png';" />
+        <main class="max-w-[42rem] mx-auto px-4 pb-32 pt-5 space-y-4">
+            <!-- Hero like portfolio -->
+            <section class="rounded-[1.2rem] border border-white/10 bg-[#0e0e12] p-4 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-40 h-40 border border-white/[0.05] rounded-full translate-x-16 -translate-y-16 pointer-events-none"></div>
+                <div class="flex gap-3.5 items-start relative z-10">
+                    <div class="w-[68px] h-[68px] rounded-full overflow-hidden border border-white/15 bg-[#15151a] shrink-0">
+                        <img src="/profile.jpg" alt="Riki PP" class="w-full h-full object-cover" />
                     </div>
-                    <div class="min-w-0">
+                    <div class="min-w-0 flex-1">
                         <p class="riki-eyebrow">HELLO, I'M</p>
-                        <h2 class="riki-profile-name">RIKI<span>.</span></h2>
-                        <p class="riki-profile-bio">A place for the tracks, moods, and late-night ideas that make up my little world on the internet.</p>
+                        <h2 class="text-[1.9rem] font-black tracking-tight leading-[0.9] mt-1">RIKI<span class="text-white/20">.</span></h2>
+                        <p class="text-[11px] text-white/60 mt-2 leading-relaxed max-w-[32ch]">14 years old student from SMP Negeri 4 Sigi. Exploring code, design, technology, AI, and digital creativity. This is my little world.</p>
+                        <div class="flex gap-1.5 mt-3">
+                            <span class="text-[10px] px-2.5 py-1 rounded-full bg-white text-black font-bold">ICON = PP</span>
+                            <span class="text-[10px] px-2.5 py-1 rounded-full bg-white/10 border border-white/10 text-white/60 font-mono">PORTFOLIO EDITION</span>
+                        </div>
                     </div>
                 </div>
-                <div class="riki-profile-stats" aria-label="Ringkasan Riki">
-                    <div class="riki-profile-stat"><strong>01</strong><span>Universe</span></div>
-                    <div class="riki-profile-stat"><strong>10</strong><span>Neon themes</span></div>
-                    <div class="riki-profile-stat"><strong>∞</strong><span>Good vibes</span></div>
+                <div class="grid grid-cols-3 gap-2 mt-4">
+                    <div class="rounded-xl bg-white/[0.04] border border-white/10 p-2.5"><p class="font-mono text-[11px] font-bold text-white">01</p><p class="text-[9px] uppercase tracking-wide text-white/50 mt-1">Universe</p></div>
+                    <div class="rounded-xl bg-white/[0.04] border border-white/10 p-2.5"><p class="font-mono text-[11px] font-bold text-white">PP</p><p class="text-[9px] uppercase tracking-wide text-white/50 mt-1">Icon</p></div>
+                    <div class="rounded-xl bg-white/[0.04] border border-white/10 p-2.5"><p class="font-mono text-[11px] font-bold text-white">∞</p><p class="text-[9px] uppercase tracking-wide text-white/50 mt-1">Ideas</p></div>
                 </div>
             </section>
 
-            <div class="riki-profile-grid">
-                <section class="riki-panel riki-panel-theme">
-                    <div class="riki-panel-head">
-                        <div>
-                            <p class="riki-eyebrow">PERSONALIZE</p>
-                            <h3 class="riki-panel-title"><i data-lucide="sparkles" class="w-4 h-4"></i> Choose your pulse</h3>
-                        </div>
-                        <button onclick="Theme.open()" class="riki-panel-tag hover:opacity-80" type="button">View all<br>colors ↗</button>
+            <!-- Portfolio link -->
+            <section class="rounded-xl border border-white/10 bg-[#0e0e12] p-3.5 flex items-center justify-between gap-3">
+                <div class="flex items-center gap-2.5 min-w-0">
+                    <div class="w-9 h-9 rounded-full bg-white/10 border border-white/10 flex items-center justify-center"><i data-lucide="orbit" class="w-4 h-4 text-white/70"></i></div>
+                    <div class="min-w-0">
+                        <p class="text-xs font-bold text-white leading-tight">protofolioriki.my.id</p>
+                        <p class="text-[10px] text-white/50 font-mono">My digital world</p>
                     </div>
-                    <div class="riki-palette-grid riki-profile-palette">${swatches}</div>
-                    <div class="flex items-center gap-2 mt-3 text-[11px] text-white/55">
-                        <span class="riki-status-dot"></span>
-                        <span>ACTIVE: <strong class="text-white/90" data-riki-theme-label></strong></span>
-                    </div>
-                </section>
+                </div>
+                <a href="https://protofolioriki.my.id" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-full bg-white text-black text-[11px] font-bold shrink-0">Visit ↗</a>
+            </section>
 
-                <section class="riki-panel">
-                    <div class="riki-panel-head">
-                        <div>
-                            <p class="riki-eyebrow">THE APP</p>
-                            <h3 class="riki-panel-title"><i data-lucide="radio" class="w-4 h-4"></i> RIKI Music</h3>
-                        </div>
-                        <span class="riki-panel-tag">v3.0</span>
-                    </div>
-                    <div class="riki-info-row">
-                        <span class="riki-info-label">Offline mode</span>
-                        <span class="riki-info-value"><span class="riki-status-dot"></span> Ready</span>
-                    </div>
-                    <div class="riki-info-row">
-                        <span class="riki-info-label">Service worker</span>
-                        <span class="riki-info-value">${serviceWorkerText}</span>
-                    </div>
-                    <div class="riki-info-row">
-                        <span class="riki-info-label">Saved cache</span>
-                        <button onclick="if(typeof clearPwaCache==='function') clearPwaCache();" class="riki-info-value hover:text-white underline decoration-white/25 underline-offset-4">Clear</button>
-                    </div>
-                </section>
+            <!-- Theme quick -->
+            <section class="rounded-xl border border-white/10 bg-[#0e0e12] p-3.5">
+                <div class="flex justify-between items-start mb-3">
+                    <div><p class="riki-eyebrow">PERSONALIZE</p><h3 class="text-xs font-bold text-white mt-1 flex items-center gap-1.5"><i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Choose your pulse</h3></div>
+                    <button onclick="Theme.open()" class="text-[10px] font-mono uppercase text-white/50 hover:text-white">View all ↗</button>
+                </div>
+                <div class="grid grid-cols-8 gap-1.5">${swatches}</div>
+                <div class="flex items-center gap-1.5 mt-2.5 text-[10px] text-white/40 font-mono"><span class="w-1.5 h-1.5 rounded-full bg-white"></span> ACTIVE: <b class="text-white/80" data-riki-theme-label></b> • ICON: <b class="text-white">profile.jpg</b></div>
+            </section>
 
-                <section class="riki-panel">
-                    <div class="riki-panel-head">
-                        <div>
-                            <p class="riki-eyebrow">NOW PLAYING</p>
-                            <h3 class="riki-panel-title"><i data-lucide="heart" class="w-4 h-4"></i> Made for your mood</h3>
-                        </div>
-                        <span class="riki-panel-tag">Always on</span>
-                    </div>
-                    <p class="text-[12px] leading-relaxed text-white/65">Search, save, and come back to the tracks that feel like yours. The universe stays in sync with your chosen glow.</p>
-                </section>
+            <!-- App info -->
+            <section class="rounded-xl border border-white/10 bg-[#0e0e12] p-3.5">
+                <div class="flex justify-between items-start mb-3">
+                    <div><p class="riki-eyebrow">THE APP</p><h3 class="text-xs font-bold text-white mt-1">RIKI Music</h3></div>
+                    <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/10 border border-white/10 text-white/60">v3.1 PORTFOLIO</span>
+                </div>
+                <div class="space-y-0 text-[11px]">
+                    <div class="flex justify-between py-2.5 border-t border-white/10"><span class="text-white/50">Icon sumber</span><span class="font-bold text-white flex items-center gap-1.5"><img src="/profile.jpg" class="w-4 h-4 rounded-full border border-white/20" /> profile.jpg</span></div>
+                    <div class="flex justify-between py-2.5 border-t border-white/10"><span class="text-white/50">Desain</span><span class="text-white">Portfolio like</span></div>
+                    <div class="flex justify-between py-2.5 border-t border-white/10"><span class="text-white/50">Animasi</span><span class="text-white flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Optimized 60fps</span></div>
+                    <div class="flex justify-between py-2.5 border-t border-white/10"><span class="text-white/50">Cache</span><button onclick="if(typeof clearPwaCache==='function') clearPwaCache();" class="text-white underline decoration-white/20 underline-offset-4">Clear</button></div>
+                </div>
+            </section>
+
+            <div class="grid grid-cols-2 gap-2">
+                <button id="pwa-install-btn" onclick="installPWA()" class="${standalone ? 'hidden ' : ''}h-[2.7rem] bg-white text-black font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 active:scale-95"><i data-lucide="download" class="w-4 h-4"></i> Install app</button>
+                <a href="https://protofolioriki.my.id" target="_blank" class="h-[2.7rem] bg-white/10 border border-white/10 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 active:scale-95"><i data-lucide="external-link" class="w-4 h-4"></i> Portfolio</a>
             </div>
 
-            <div class="riki-profile-actions">
-                <button id="pwa-install-btn" onclick="installPWA()" class="${standalone ? 'hidden ' : ''}riki-action-primary font-bold rounded-xl active:scale-95 transition-all text-center flex items-center justify-center gap-2">
-                    <i data-lucide="download" class="w-4 h-4"></i> Install app
-                </button>
-                <a href="https://protofolioriki.my.id" target="_blank" rel="noopener noreferrer" class="btn-chrome font-bold rounded-xl active:scale-95 transition-all text-center flex items-center justify-center gap-2">
-                    <i data-lucide="orbit" class="w-4 h-4"></i> Visit portfolio
-                </a>
-            </div>
+            <p class="text-center text-[10px] text-white/30 font-mono pt-2">RIKI • Digital Sound Universe • Icon = PP • Portfolio Edition</p>
         </main>`;
 
         if (typeof Theme !== 'undefined' && Theme.apply) Theme.apply(Theme.current, false);
         lucide.createIcons();
     }
 };
-
 var Dev = Profile;
