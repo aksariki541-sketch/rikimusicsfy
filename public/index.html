@@ -370,10 +370,11 @@
     <script>
         document.addEventListener('visibilitychange', function(){ document.documentElement.classList.toggle('tab-hidden', document.hidden); });
         setTimeout(function(){
+            // Jangan hapus splash saat PWA sudah terinstall, agar banner tetap ada
+            var isInstalled = (window.navigator.standalone === true) || (localStorage.getItem('pwa_installed') === 'true');
             var sp=document.getElementById('splash-screen');
-            if(sp && !sp.classList.contains('hide')){
+            if(sp && !sp.classList.contains('hide') && !isInstalled){
                 sp.classList.add('hide');
-                setTimeout(function(){ if(sp&&sp.parentNode) sp.parentNode.removeChild(sp); }, 500);
             }
         }, 2400);
     </script>
