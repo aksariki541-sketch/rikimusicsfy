@@ -1,5 +1,5 @@
-const CACHE_STATIC_NAME = 'Musicfyrik-static-v2';
-const CACHE_DATA_NAME = 'Musicfyrik-api-v2';
+const CACHE_STATIC_NAME = 'Musicfyrik-static-v3';
+const CACHE_DATA_NAME = 'Musicfyrik-api-v3';
 
 const STATIC_ASSETS = [
   '/',
@@ -7,6 +7,10 @@ const STATIC_ASSETS = [
   '/manifest.json',
   '/logo.png',
   '/banner.png',
+  '/icon-192.png',
+  '/icon-512.png',
+  '/icon-maskable-192.png',
+  '/icon-maskable-512.png',
   '/app.js',
   '/player.js',
   '/fullplayer.js',

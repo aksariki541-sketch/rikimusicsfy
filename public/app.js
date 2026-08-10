@@ -1,9 +1,13 @@
 // PWA - INSTALL & OFFLINE MODE HANDLING
 var deferredInstallPrompt=null;
-var isStandaloneApp=(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)||window.navigator.standalone===true;
+var isTrulyStandalone=(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)||window.navigator.standalone===true;
 var isIOSDevice=/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream;
 
-// Auto-fix PWA detection for users who have it installed but browser doesn't report standalone
+// isStandaloneApp = lenient "installed" guess (real standalone OR previously-installed flag).
+// Used to UNLOCK offline features. Kept separate from isTrulyStandalone so the install
+// button isn't permanently hidden when the localStorage flag gets stuck at 'true'
+// (which happens after installing once and then uninstalling).
+var isStandaloneApp=isTrulyStandalone;
 if (isStandaloneApp) {
     try { localStorage.setItem('pwa_installed', 'true'); } catch(e){}
 } else if (localStorage.getItem('pwa_installed') === 'true') {
@@ -68,8 +72,12 @@ document.addEventListener('DOMContentLoaded', updateOnlineOfflineStatus);
 window.addEventListener('beforeinstallprompt',function(e){
     e.preventDefault();
     deferredInstallPrompt=e;
-    var btn=document.getElementById('pwa-install-btn');
-    if(btn&&!isStandaloneApp)btn.classList.remove('hidden');
+    // beforeinstallprompt ONLY fires when the app is genuinely installable and NOT yet
+    // installed in this browser, so always reveal the button (unless truly standalone).
+    if(!isTrulyStandalone){
+        var btn=document.getElementById('pwa-install-btn');
+        if(btn)btn.classList.remove('hidden');
+    }
 });
 window.addEventListener('appinstalled',function(){
     deferredInstallPrompt=null;
@@ -129,11 +137,82 @@ function installPWA(){
             var btn=document.getElementById('pwa-install-btn');
             if(btn)btn.classList.add('hidden');
         });
-    }else if(isIOSDevice){
-        showToast('Tap ikon Bagikan lalu pilih "Add to Home Screen"');
     }else{
-        showToast('Petunjuk: Buka menu browser lalu pilih "Tambah ke Layar Utama" / "Install Aplikasi"');
+        // No install prompt available (browser suppressed it after a previous uninstall,
+        // or the browser doesn't support beforeinstallprompt). Show manual instructions.
+        showInstallInstructionsModal();
     }
+}
+
+// Manual install instructions shown when the browser doesn't fire beforeinstallprompt
+// (e.g. after install-then-uninstall, or on unsupported browsers like iOS Safari).
+function showInstallInstructionsModal(){
+    var existing = document.getElementById('pwa-install-modal');
+    if (existing) existing.remove();
+    var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor) && !/Edg|OPR|Firefox|SamsungBrowser/.test(navigator.userAgent);
+    var steps;
+    if(isIOSDevice){
+        steps =
+            '<li>Tap ikon <b>Bagikan</b> (kotak dengan panah ke atas) di bawah Safari.</li>'+
+            '<li>Pilih <b>"Add to Home Screen"</b> / "Tambah ke Layar Utama".</li>'+
+            '<li>Tap <b>"Add"</b>. Musicfyrik muncul di layar utama sebagai aplikasi.</li>';
+    } else if(isChrome){
+        steps =
+            '<li>Tap ikon menu <b>⋮</b> (kanan atas Chrome).</li>'+
+            '<li>Pilih <b>"Install app"</b> / "Install aplikasi" (atau "Add to Home screen").</li>'+
+            '<li>Tap <b>"Install"</b> lalu buka dari layar utama.</li>'+
+            '<li class="opacity-70">Tidak ada menunya? Tutup semua tab Musicfyrik, buka Settings → Site settings → Musicfyrik → Clear data, lalu coba lagi.</li>';
+    } else {
+        steps =
+            '<li>Buka <b>menu browser</b> (⋮ atau ☰).</li>'+
+            '<li>Pilih <b>"Add to Home screen"</b> / "Tambah ke Layar Utama" / "Install app".</li>'+
+            '<li>Konfirmasi, lalu buka dari layar utama.</li>';
+    }
+
+    var modal = document.createElement('div');
+    modal.id = 'pwa-install-modal';
+    modal.className = 'fixed inset-0 z-[700] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm';
+    modal.onclick = function(e){ if(e.target === modal) modal.remove(); };
+    modal.innerHTML = '<div class="bg-[#121318] border border-white/15 rounded-2xl p-5 max-w-xs w-full space-y-3 shadow-2xl" onclick="event.stopPropagation()">'+
+        '<div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/20 text-white flex items-center justify-center mx-auto shadow-md">'+
+            '<i data-lucide="download" class="w-6 h-6 text-white"></i>'+
+        '</div>'+
+        '<div class="space-y-1 text-center">'+
+            '<h3 class="text-white font-bold text-sm">Install Musicfyrik</h3>'+
+            '<p class="text-white/60 text-xs">Install manual lewat browser:</p>'+
+        '</div>'+
+        '<ol class="text-white/80 text-xs space-y-2 list-decimal pl-4 leading-relaxed">'+steps+'</ol>'+
+        '<div class="space-y-2 pt-1">'+
+            '<button onclick="document.getElementById(\'pwa-install-modal\').remove(); resetPwaState();" class="w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer border border-white/15">'+
+                '<i data-lucide="refresh-cw" class="w-4 h-4"></i>'+
+                '<span>Reset Status PWA (Lalu Muat Ulang)</span>'+
+            '</button>'+
+            '<button onclick="document.getElementById(\'pwa-install-modal\').remove();" class="w-full py-2 px-4 rounded-xl bg-white/5 hover:bg-white/10 text-white/70 font-semibold text-xs active:scale-95 transition cursor-pointer">Tutup</button>'+
+        '</div>'+
+    '</div>';
+    document.body.appendChild(modal);
+    if (window.lucide) lucide.createIcons();
+}
+
+// Clears the stuck PWA "installed" flag + caches so the install button/prompt can come back
+// after the user previously installed and then uninstalled the app.
+function resetPwaState(){
+    try { localStorage.removeItem('pwa_installed'); } catch(e){}
+    try { localStorage.removeItem('pwa_offline_tracks'); } catch(e){}
+    try { localStorage.removeItem('pwa_lyrics_cache'); } catch(e){}
+    try { localStorage.removeItem('pwa_audio_cache'); } catch(e){}
+    isStandaloneApp = isTrulyStandalone;
+    deferredInstallPrompt = null;
+    if ('caches' in window) {
+        caches.keys().then(function(names){ names.forEach(function(n){ caches.delete(n); }); });
+    }
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(regs){
+            regs.forEach(function(r){ r.unregister(); });
+        });
+    }
+    showToast('Status PWA direset. Memuat ulang halaman...');
+    setTimeout(function(){ window.location.reload(); }, 1200);
 }
 
 // Offline PWA Storage Helper

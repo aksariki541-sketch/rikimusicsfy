@@ -55,9 +55,14 @@ var Profile = {
                 </div>
             </div>
             
-            <button id="pwa-install-btn" onclick="installPWA()" class="${typeof isStandaloneApp !== 'undefined' && isStandaloneApp ? 'hidden ' : ''}w-full max-w-sm mx-auto btn-chrome font-bold py-4 rounded-full active:scale-95 transition-all text-center flex items-center justify-center gap-2 mb-3">
+            <button id="pwa-install-btn" onclick="installPWA()" class="${typeof isTrulyStandalone !== 'undefined' && isTrulyStandalone ? 'hidden ' : ''}w-full max-w-sm mx-auto btn-chrome font-bold py-4 rounded-full active:scale-95 transition-all text-center flex items-center justify-center gap-2 mb-3">
                 <i data-lucide="download" class="w-5 h-5"></i> Install Aplikasi
             </button>
+
+            <button onclick="resetPwaState()" class="w-full max-w-sm mx-auto bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 font-semibold text-sm py-3.5 rounded-full active:scale-95 transition-all text-center flex items-center justify-center gap-2 mb-3">
+                <i data-lucide="refresh-cw" class="w-4 h-4"></i> Reset Status PWA
+            </button>
+            <p class="text-white/40 text-[11px] max-w-sm mx-auto -mt-1 mb-4 leading-relaxed">Tombol install tidak muncul setelah uninstall? Tekan <b>Reset Status PWA</b> lalu muat ulang halaman.</p>
 
             <a href="https://whatsapp.com/channel/0029VbCsS2r2phHIV3O0nO1a" target="_blank" class="block w-full max-w-sm mx-auto btn-chrome font-bold py-4 rounded-full active:scale-95 transition-all text-center flex items-center justify-center gap-2">
                 <i data-lucide="message-circle" class="w-5 h-5"></i> Gabung Channel WhatsApp
