@@ -151,8 +151,8 @@ app.use((req, res) => {
             const qCover = reqUrl.searchParams.get('cover') || reqUrl.searchParams.get('thumb');
 
             const coverUrl = qCover || `https://i.ytimg.com/vi/${cleanVideoId}/hqdefault.jpg`;
-            const playTitle = qTitle ? (qArtist ? `${qTitle} - ${qArtist}` : qTitle) : `Dengarkan Musik - musicfyrik`;
-            const playDesc = `Dengarkan ${qTitle || 'lagu favoritmu'} di musicfyrik Web Music Player`;
+            const playTitle = qTitle ? (qArtist ? `${qTitle} - ${qArtist}` : qTitle) : `Dengarkan Musik - Musicfyrik`;
+            const playDesc = `Dengarkan ${qTitle || 'lagu favoritmu'} di Musicfyrik Web Music Player`;
 
             return fs.readFile(filePath, 'utf8', (err, html) => {
                 if (err) return res.sendFile(filePath);
@@ -184,8 +184,8 @@ app.use((req, res) => {
             const qName = reqUrl.searchParams.get('name') || reqUrl.searchParams.get('title');
             const qCover = reqUrl.searchParams.get('cover') || reqUrl.searchParams.get('thumb');
 
-            const pageTitle = qName ? `${qName} (Artist) - musicfyrik` : `Artist - musicfyrik`;
-            const pageDesc = qName ? `Dengarkan lagu & album terbaik dari ${qName} di musicfyrik` : `Dengarkan lagu & album dari artist favoritmu di musicfyrik`;
+            const pageTitle = qName ? `${qName} (Artist) - Musicfyrik` : `Artist - Musicfyrik`;
+            const pageDesc = qName ? `Dengarkan lagu & album terbaik dari ${qName} di Musicfyrik` : `Dengarkan lagu & album dari artist favoritmu di Musicfyrik`;
             const coverUrl = qCover || `https://www.gobox.my.id/file/R0ym4wqfznmp.png`;
 
             return fs.readFile(filePath, 'utf8', (err, html) => {
@@ -219,8 +219,8 @@ app.use((req, res) => {
             const qArtist = reqUrl.searchParams.get('artist');
             const qCover = reqUrl.searchParams.get('cover') || reqUrl.searchParams.get('thumb');
 
-            const pageTitle = qTitle ? (qArtist ? `${qTitle} - ${qArtist} (Album) - musicfyrik` : `${qTitle} (Album) - musicfyrik`) : `Album - musicfyrik`;
-            const pageDesc = qTitle ? `Dengarkan album ${qTitle} di musicfyrik` : `Dengarkan album favoritmu di musicfyrik`;
+            const pageTitle = qTitle ? (qArtist ? `${qTitle} - ${qArtist} (Album) - Musicfyrik` : `${qTitle} (Album) - Musicfyrik`) : `Album - Musicfyrik`;
+            const pageDesc = qTitle ? `Dengarkan album ${qTitle} di Musicfyrik` : `Dengarkan album favoritmu di Musicfyrik`;
             const coverUrl = qCover || `https://www.gobox.my.id/file/R0ym4wqfznmp.png`;
 
             return fs.readFile(filePath, 'utf8', (err, html) => {
