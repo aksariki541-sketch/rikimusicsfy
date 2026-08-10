@@ -90,7 +90,7 @@ window.addEventListener('appinstalled',function(){
     try { localStorage.setItem('pwa_installed', 'true'); } catch(e){}
     isStandaloneApp = true;
     updatePwaInstallButtonState();
-    showToast('RIKI berhasil diinstall!');
+    showToast('musicfyrik berhasil diinstall!');
 });
 
 function isPwaInstalled() {
@@ -106,7 +106,7 @@ function updatePwaInstallButtonState() {
     if (isInstalled) {
         btn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i> Terinstall ✓';
         btn.className = 'h-[2.5rem] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 active:scale-95 cursor-pointer';
-        btn.onclick = function() { showToast('RIKI sudah terinstall di perangkat Anda ✓'); };
+        btn.onclick = function() { showToast('musicfyrik sudah terinstall di perangkat Anda ✓'); };
     } else {
         btn.innerHTML = '<i data-lucide="download" class="w-4 h-4"></i> Install PWA';
         btn.className = 'h-[2.5rem] bg-white text-black font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 active:scale-95 cursor-pointer';
@@ -131,7 +131,7 @@ function showPwaRequiredModal() {
         '<div class="space-y-1">'+
             '<h3 class="text-white font-bold text-sm">Install Aplikasi Terlebih Dahulu</h3>'+
             '<p class="text-white/60 text-xs leading-relaxed">'+
-                'Fitur Mode Offline khusus untuk aplikasi PWA. Silakan install RIKI ke layar utama terlebih dahulu.'+
+                'Fitur Mode Offline khusus untuk aplikasi PWA. Silakan install musicfyrik ke layar utama terlebih dahulu.'+
             '</p>'+
         '</div>'+
         '<div class="space-y-2 pt-1">'+
@@ -155,7 +155,7 @@ function installPWA(){
             if(choice.outcome==='accepted') {
                 try { localStorage.setItem('pwa_installed', 'true'); } catch(e){}
                 isStandaloneApp = true;
-                showToast('Menginstall RIKI...');
+                showToast('Menginstall musicfyrik...');
             }
             deferredInstallPrompt=null;
             updatePwaInstallButtonState();
@@ -536,23 +536,23 @@ var App={
     },
     autoPlayTrack(videoId){
         fetch(API.search+'?query=https://youtube.com/watch?v='+videoId).then(function(r){return r.json();}).then(function(d){
-            var title='Lagu',artist='RIKI',cover=toHDCover('', videoId),artistId='';
+            var title='Lagu',artist='musicfyrik',cover=toHDCover('', videoId),artistId='';
             if(d.status&&d.result.songs&&d.result.songs.length>0){var song=d.result.songs[0];title=cn(song.title);artist=cn(song.artist);cover=toHDCover(song.thumbnail, videoId);artistId=song.artistId||'';}
             S.ct={id:videoId,videoId:videoId,title:title,artist:artist,cover:cover,artistId:artistId,ytUrl:'https://youtube.com/watch?v='+videoId};
             S.ps='direct';S.pl=[S.ct];S.pi=0;UU();MP.show();resetLyricsUI(videoId);
             FullPlayer.open();loadTrack(S.ct);
         }).catch(function(){
-            S.ct={id:videoId,videoId:videoId,title:'Lagu',artist:'RIKI',cover:toHDCover('', videoId),artistId:'',ytUrl:'https://youtube.com/watch?v='+videoId};
+            S.ct={id:videoId,videoId:videoId,title:title,artist:artist,cover:cover,artistId:artistId,ytUrl:'https://youtube.com/watch?v='+videoId};
             S.ps='direct';S.pl=[S.ct];S.pi=0;UU();MP.show();resetLyricsUI(videoId);
             FullPlayer.open();loadTrack(S.ct);
         });
     },
     showSharePopup(videoId){
         fetch(API.search+'?query=https://youtube.com/watch?v='+videoId).then(function(r){return r.json();}).then(function(d){
-            var title='Lagu',artist='RIKI',cover=toHDCover('', videoId);
+            var title='Lagu',artist='musicfyrik',cover=toHDCover('', videoId);
             if(d.status&&d.result.songs&&d.result.songs.length>0){var song=d.result.songs[0];title=cn(song.title);artist=cn(song.artist);cover=toHDCover(song.thumbnail, videoId);}
             App.renderPopup(videoId,title,artist,cover);
-        }).catch(function(){App.renderPopup(videoId,'Lagu','RIKI',toHDCover('', videoId));});
+        }).catch(function(){App.renderPopup(videoId,'Lagu','musicfyrik',toHDCover('', videoId));});
     },
     renderPopup(videoId,title,artist,cover){
         if(typeof updateOG==='function') updateOG(title, cover, artist);
@@ -655,7 +655,7 @@ var App={
                     <img src="/profile.jpg" alt="PP" class="w-full h-full object-cover" />
                 </div>
                 
-                <h2 class="text-xl font-black tracking-tight text-white mb-1">RIKI • Portfolio Edition</h2>
+                <h2 class="text-xl font-black tracking-tight text-white mb-1">musicfyrik • Portfolio Edition</h2>
                 <p class="text-white/60 text-[11px] font-mono mb-5">Ikon = PP • Animasi 60fps • Desain protofolioriki.my.id</p>
                 
                 <!-- Features list -->

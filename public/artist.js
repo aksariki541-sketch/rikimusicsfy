@@ -364,8 +364,8 @@ var Artist={
 
         if (navigator.share) {
             navigator.share({
-                title: name + ' - RIKI',
-                text: 'Dengarkan lagu & album terbaik dari ' + name + ' di RIKI!',
+                title: name + ' - musicfyrik',
+                text: 'Dengarkan lagu & album terbaik dari ' + name + ' di musicfyrik!',
                 url: url
             }).catch(function() {});
         } else {

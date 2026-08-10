@@ -230,8 +230,8 @@ var Album = {
 
         if (navigator.share) {
             navigator.share({
-                title: title + ' - RIKI',
-                text: 'Dengarkan album ' + title + ' di RIKI!',
+                title: title + ' - musicfyrik',
+                text: 'Dengarkan album ' + title + ' di musicfyrik!',
                 url: url
             }).catch(function() {});
         } else {

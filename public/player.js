@@ -96,9 +96,9 @@ function cn(t){if(!t)return'Unknown';return t.replace(/[^\x20-\x7E\xA0-\xFF\u010
 function gid(id){return document.getElementById(id);}
 
 function updateOG(title,image){
-    var t=document.querySelector('meta[property="og:title"]');if(!t){t=document.createElement('meta');t.setAttribute('property','og:title');document.head.appendChild(t);}t.setAttribute('content',title+' | RIKI');
+    var t=document.querySelector('meta[property="og:title"]');if(!t){t=document.createElement('meta');t.setAttribute('property','og:title');document.head.appendChild(t);}t.setAttribute('content',title+' | musicfyrik');
     var i=document.querySelector('meta[property="og:image"]');if(!i){i=document.createElement('meta');i.setAttribute('property','og:image');document.head.appendChild(i);}i.setAttribute('content',image||FI);
-    document.title=title+' - RIKI';
+    document.title=title+' - musicfyrik';
 }
 
 // ---- AUDIO ENGINE (elemen <audio> native, sumber stream dari /api/ytplay) ----
@@ -744,8 +744,8 @@ function updateCoverWithTransition(imgEl, newSrc, origCover, useScale) {
 function updateOG(title, cover, artist) {
     if (title && cover) {
         var fullTitle = artist ? (title + ' - ' + artist) : title;
-        var docTitle = fullTitle + ' | RIKI';
-        var description = 'Dengarkan ' + fullTitle + ' di RIKI';
+        var docTitle = fullTitle + ' | musicfyrik';
+        var description = 'Dengarkan ' + fullTitle + ' di musicfyrik';
 
         document.title = docTitle;
 
@@ -763,17 +763,17 @@ function updateOG(title, cover, artist) {
         setFavicon(cover);
     } else {
         var defaultCover = 'https://www.gobox.my.id/file/R0ym4wqfznmp.png';
-        document.title = 'RIKI';
+        document.title = 'musicfyrik';
 
-        setMetaTag('og:title', 'RIKI', true);
-        setMetaTag('og:description', 'RIKI - Web Music Player', true);
+        setMetaTag('og:title', 'musicfyrik', true);
+        setMetaTag('og:description', 'musicfyrik - Web Music Player', true);
         setMetaTag('og:image', defaultCover, true);
         setMetaTag('og:image:width', '600', true);
         setMetaTag('og:image:height', '600', true);
         setMetaTag('og:url', location.href, true);
         setMetaTag('twitter:card', 'summary_large_image', false);
-        setMetaTag('twitter:title', 'RIKI', false);
-        setMetaTag('twitter:description', 'RIKI - Web Music Player', false);
+        setMetaTag('twitter:title', 'musicfyrik', false);
+        setMetaTag('twitter:description', 'musicfyrik - Web Music Player', false);
         setMetaTag('twitter:image', defaultCover, false);
 
         setFavicon(null);
@@ -783,8 +783,8 @@ function updateOG(title, cover, artist) {
 function updateOGForArtist(artistName, coverUrl) {
     if (!artistName) return;
     var name = cn(artistName);
-    var docTitle = name + ' - Artist | RIKI';
-    var description = 'Dengarkan lagu dan album terbaik dari ' + name + ' di RIKI';
+    var docTitle = name + ' - Artist | musicfyrik';
+    var description = 'Dengarkan lagu dan album terbaik dari ' + name + ' di musicfyrik';
     var cover = (coverUrl && coverUrl !== FI) ? coverUrl : 'https://www.gobox.my.id/file/R0ym4wqfznmp.png';
 
     document.title = docTitle;
@@ -807,8 +807,8 @@ function updateOGForAlbum(albumTitle, coverUrl, artistName) {
     if (!albumTitle) return;
     var title = albumTitle;
     var fullTitle = artistName ? (title + ' - ' + artistName) : title;
-    var docTitle = fullTitle + ' - Album | RIKI';
-    var description = 'Dengarkan album ' + fullTitle + ' di RIKI';
+    var docTitle = fullTitle + ' - Album | musicfyrik';
+    var description = 'Dengarkan album ' + fullTitle + ' di musicfyrik';
     var cover = (coverUrl && coverUrl !== FI) ? coverUrl : 'https://www.gobox.my.id/file/R0ym4wqfznmp.png';
 
     document.title = docTitle;
@@ -2170,7 +2170,7 @@ function openShareCard() {
             '<div class="flex justify-between w-full text-[9px] text-[#6b7280] font-mono mt-1"><span>1:48</span><span>2:56</span></div>' +
             '<div class="border-t border-white/5 w-full pt-3 mt-1 flex items-center justify-center gap-1.5">' +
                 '<i data-lucide="music" class="w-3.5 h-3.5 text-[#a0a5b0]"></i>' +
-                '<span class="text-[10px] text-[#6b7280] tracking-wider font-semibold uppercase">RIKI Web App</span>' +
+                '<span class="text-[10px] text-[#6b7280] tracking-wider font-semibold uppercase">musicfyrik Web App</span>' +
             '</div>' +
         '</div>' +
         
@@ -2209,7 +2209,7 @@ function triggerNativeShare() {
     if (navigator.share) {
         navigator.share({
             title: S.ct.title,
-            text: 'Dengarkan ' + S.ct.title + ' - ' + S.ct.artist + ' di RIKI!',
+            text: 'Dengarkan ' + S.ct.title + ' - ' + S.ct.artist + ' di musicfyrik!',
             url: url
         }).catch(function() {});
     } else {
@@ -2273,12 +2273,12 @@ function downloadShareCard() {
         
         ctx.fillStyle = isLight ? '#a0aec0' : '#4a5568';
         ctx.font = '16px monospace';
-        ctx.fillText('DIDENGARKAN DI RIKI', 300, 710);
+        ctx.fillText('DIDENGARKAN DI musicfyrik', 300, 710);
         
         try {
             var dataUrl = canvas.toDataURL('image/png');
             var a = document.createElement('a');
-            a.download = S.ct.title.replace(/[^a-zA-Z0-9]/g, '_') + '_riki-musify.png';
+            a.download = S.ct.title.replace(/[^a-zA-Z0-9]/g, '_') + '_musicfyrik-musify.png';
             a.href = dataUrl;
             a.click();
             showToast('Berhasil mengunduh Share Card!');
@@ -2298,12 +2298,12 @@ function downloadShareCard() {
         
         ctx.fillStyle = isLight ? '#a0aec0' : '#4a5568';
         ctx.font = '16px monospace';
-        ctx.fillText('DIDENGARKAN DI RIKI', 300, 710);
+        ctx.fillText('DIDENGARKAN DI musicfyrik', 300, 710);
         
         try {
             var dataUrl = canvas.toDataURL('image/png');
             var a = document.createElement('a');
-            a.download = S.ct.title.replace(/[^a-zA-Z0-9]/g, '_') + '_riki-musify.png';
+            a.download = S.ct.title.replace(/[^a-zA-Z0-9]/g, '_') + '_musicfyrik-musify.png';
             a.href = dataUrl;
             a.click();
             showToast('Berhasil mengunduh Share Card (tanpa cover)!');
