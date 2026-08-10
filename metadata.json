@@ -1,6 +1,6 @@
 {
-  "name": "RIKI",
-  "description": "RIKI - Web Music Player",
+  "name": "musicfyrik",
+  "description": "musicfyrik - Web Music Player",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

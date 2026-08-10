@@ -1,8 +1,8 @@
 {
   "id": "/",
-  "name": "RIKI",
-  "short_name": "RIKI",
-  "description": "RIKI — Digital Sound Universe",
+  "name": "musicfyrik",
+  "short_name": "musicfyrik",
+  "description": "musicfyrik — Digital Sound Universe",
   "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
