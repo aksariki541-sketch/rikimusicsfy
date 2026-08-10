@@ -500,7 +500,138 @@
             transition-duration: 500ms !important;
             transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1) !important;
         }
+
+        /* ===== TEMA WARNA (10 pilihan via profile) - hanya override tambahan ===== */
+        html[data-theme="blue"] { --bg-color:#171c2b; --theme-accent:#3b82f6; }
+        html[data-theme="blue"] .app-bg { background:#070a12; }
+        html[data-theme="blue"] .glass-card { background:#1d2438; }
+        html[data-theme="blue"] .glass-card:hover { background:#252e47; }
+        html[data-theme="blue"] .glass { background:#1d2438; }
+        html[data-theme="blue"] .glass-hover:hover { background:#252e47; }
+        html[data-theme="blue"] .glass-dock { background:#1a2030; }
+        html[data-theme="blue"] .nav-blur { background:rgba(10,13,22,0.96); }
+        html[data-theme="blue"] .player-bg-container { background-color:#05070d; }
+        html[data-theme="blue"] .player-bg-vignette { background:linear-gradient(to bottom, rgba(7,10,18,0.55) 0%, rgba(7,10,18,0.25) 45%, rgba(7,10,18,0.8) 100%); }
+        html[data-theme="blue"] #lyrics-overlay { background-color:#04060c !important; }
+        html[data-theme="blue"] #lyrics-overlay .player-bg-vignette { background:radial-gradient(circle at center, rgba(4,6,12,0.82) 0%, rgba(4,6,12,0.96) 100%), linear-gradient(to bottom, rgba(4,6,12,0.9) 0%, rgba(4,6,12,0.8) 50%, rgba(4,6,12,0.98) 100%) !important; }
+        html[data-theme="blue"] #splash-screen { background:radial-gradient(circle at 50% 45%, #1c2233 0%, #04060c 70%); }
+
+        html[data-theme="red"] { --bg-color:#261417; --theme-accent:#ef4444; }
+        html[data-theme="red"] .app-bg { background:#130809; }
+        html[data-theme="red"] .glass-card { background:#331b1f; }
+        html[data-theme="red"] .glass-card:hover { background:#44232a; }
+        html[data-theme="red"] .glass { background:#331b1f; }
+        html[data-theme="red"] .glass-hover:hover { background:#44232a; }
+        html[data-theme="red"] .glass-dock { background:#2b171b; }
+        html[data-theme="red"] .nav-blur { background:rgba(23,10,11,0.96); }
+        html[data-theme="red"] .player-bg-container { background-color:#0e0506; }
+        html[data-theme="red"] .player-bg-vignette { background:linear-gradient(to bottom, rgba(19,8,9,0.55) 0%, rgba(19,8,9,0.25) 45%, rgba(19,8,9,0.8) 100%); }
+        html[data-theme="red"] #lyrics-overlay { background-color:#0c0405 !important; }
+        html[data-theme="red"] #lyrics-overlay .player-bg-vignette { background:radial-gradient(circle at center, rgba(12,4,5,0.82) 0%, rgba(12,4,5,0.96) 100%), linear-gradient(to bottom, rgba(12,4,5,0.9) 0%, rgba(12,4,5,0.8) 50%, rgba(12,4,5,0.98) 100%) !important; }
+        html[data-theme="red"] #splash-screen { background:radial-gradient(circle at 50% 45%, #331a1e 0%, #0c0405 70%); }
+
+        html[data-theme="green"] { --bg-color:#13221a; --theme-accent:#22c55e; }
+        html[data-theme="green"] .app-bg { background:#07120b; }
+        html[data-theme="green"] .glass-card { background:#182e23; }
+        html[data-theme="green"] .glass-card:hover { background:#203d2e; }
+        html[data-theme="green"] .glass { background:#182e23; }
+        html[data-theme="green"] .glass-hover:hover { background:#203d2e; }
+        html[data-theme="green"] .glass-dock { background:#152720; }
+        html[data-theme="green"] .nav-blur { background:rgba(9,21,14,0.96); }
+        html[data-theme="green"] .player-bg-container { background-color:#040d07; }
+        html[data-theme="green"] .player-bg-vignette { background:linear-gradient(to bottom, rgba(7,18,11,0.55) 0%, rgba(7,18,11,0.25) 45%, rgba(7,18,11,0.8) 100%); }
+        html[data-theme="green"] #lyrics-overlay { background-color:#030a06 !important; }
+        html[data-theme="green"] #lyrics-overlay .player-bg-vignette { background:radial-gradient(circle at center, rgba(3,10,6,0.82) 0%, rgba(3,10,6,0.96) 100%), linear-gradient(to bottom, rgba(3,10,6,0.9) 0%, rgba(3,10,6,0.8) 50%, rgba(3,10,6,0.98) 100%) !important; }
+        html[data-theme="green"] #splash-screen { background:radial-gradient(circle at 50% 45%, #192e23 0%, #030a06 70%); }
+
+        html[data-theme="purple"] { --bg-color:#1e1533; --theme-accent:#a855f7; }
+        html[data-theme="purple"] .app-bg { background:#0e0716; }
+        html[data-theme="purple"] .glass-card { background:#281c44; }
+        html[data-theme="purple"] .glass-card:hover { background:#33245a; }
+        html[data-theme="purple"] .glass { background:#281c44; }
+        html[data-theme="purple"] .glass-hover:hover { background:#33245a; }
+        html[data-theme="purple"] .glass-dock { background:#22183a; }
+        html[data-theme="purple"] .nav-blur { background:rgba(17,9,25,0.96); }
+        html[data-theme="purple"] .player-bg-container { background-color:#0a0410; }
+        html[data-theme="purple"] .player-bg-vignette { background:linear-gradient(to bottom, rgba(14,7,22,0.55) 0%, rgba(14,7,22,0.25) 45%, rgba(14,7,22,0.8) 100%); }
+        html[data-theme="purple"] #lyrics-overlay { background-color:#08030d !important; }
+        html[data-theme="purple"] #lyrics-overlay .player-bg-vignette { background:radial-gradient(circle at center, rgba(8,3,13,0.82) 0%, rgba(8,3,13,0.96) 100%), linear-gradient(to bottom, rgba(8,3,13,0.9) 0%, rgba(8,3,13,0.8) 50%, rgba(8,3,13,0.98) 100%) !important; }
+        html[data-theme="purple"] #splash-screen { background:radial-gradient(circle at 50% 45%, #251b3d 0%, #08030d 70%); }
+
+        html[data-theme="pink"] { --bg-color:#291524; --theme-accent:#ec4899; }
+        html[data-theme="pink"] .app-bg { background:#150812; }
+        html[data-theme="pink"] .glass-card { background:#371c31; }
+        html[data-theme="pink"] .glass-card:hover { background:#482441; }
+        html[data-theme="pink"] .glass { background:#371c31; }
+        html[data-theme="pink"] .glass-hover:hover { background:#482441; }
+        html[data-theme="pink"] .glass-dock { background:#2d182a; }
+        html[data-theme="pink"] .nav-blur { background:rgba(24,10,21,0.96); }
+        html[data-theme="pink"] .player-bg-container { background-color:#10050e; }
+        html[data-theme="pink"] .player-bg-vignette { background:linear-gradient(to bottom, rgba(21,8,18,0.55) 0%, rgba(21,8,18,0.25) 45%, rgba(21,8,18,0.8) 100%); }
+        html[data-theme="pink"] #lyrics-overlay { background-color:#0d040b !important; }
+        html[data-theme="pink"] #lyrics-overlay .player-bg-vignette { background:radial-gradient(circle at center, rgba(13,4,11,0.82) 0%, rgba(13,4,11,0.96) 100%), linear-gradient(to bottom, rgba(13,4,11,0.9) 0%, rgba(13,4,11,0.8) 50%, rgba(13,4,11,0.98) 100%) !important; }
+        html[data-theme="pink"] #splash-screen { background:radial-gradient(circle at 50% 45%, #331a2e 0%, #0d040b 70%); }
+
+        html[data-theme="orange"] { --bg-color:#2a1a10; --theme-accent:#f97316; }
+        html[data-theme="orange"] .app-bg { background:#140b06; }
+        html[data-theme="orange"] .glass-card { background:#382214; }
+        html[data-theme="orange"] .glass-card:hover { background:#4a2c19; }
+        html[data-theme="orange"] .glass { background:#382214; }
+        html[data-theme="orange"] .glass-hover:hover { background:#4a2c19; }
+        html[data-theme="orange"] .glass-dock { background:#2f1e12; }
+        html[data-theme="orange"] .nav-blur { background:rgba(24,14,8,0.96); }
+        html[data-theme="orange"] .player-bg-container { background-color:#0f0804; }
+        html[data-theme="orange"] .player-bg-vignette { background:linear-gradient(to bottom, rgba(20,11,6,0.55) 0%, rgba(20,11,6,0.25) 45%, rgba(20,11,6,0.8) 100%); }
+        html[data-theme="orange"] #lyrics-overlay { background-color:#0c0603 !important; }
+        html[data-theme="orange"] #lyrics-overlay .player-bg-vignette { background:radial-gradient(circle at center, rgba(12,6,3,0.82) 0%, rgba(12,6,3,0.96) 100%), linear-gradient(to bottom, rgba(12,6,3,0.9) 0%, rgba(12,6,3,0.8) 50%, rgba(12,6,3,0.98) 100%) !important; }
+        html[data-theme="orange"] #splash-screen { background:radial-gradient(circle at 50% 45%, #352114 0%, #0c0603 70%); }
+
+        html[data-theme="gold"] { --bg-color:#252010; --theme-accent:#eab308; }
+        html[data-theme="gold"] .app-bg { background:#120f05; }
+        html[data-theme="gold"] .glass-card { background:#2f2a15; }
+        html[data-theme="gold"] .glass-card:hover { background:#3d361c; }
+        html[data-theme="gold"] .glass { background:#2f2a15; }
+        html[data-theme="gold"] .glass-hover:hover { background:#3d361c; }
+        html[data-theme="gold"] .glass-dock { background:#292512; }
+        html[data-theme="gold"] .nav-blur { background:rgba(21,18,7,0.96); }
+        html[data-theme="gold"] .player-bg-container { background-color:#0c0a03; }
+        html[data-theme="gold"] .player-bg-vignette { background:linear-gradient(to bottom, rgba(18,15,5,0.55) 0%, rgba(18,15,5,0.25) 45%, rgba(18,15,5,0.8) 100%); }
+        html[data-theme="gold"] #lyrics-overlay { background-color:#0a0802 !important; }
+        html[data-theme="gold"] #lyrics-overlay .player-bg-vignette { background:radial-gradient(circle at center, rgba(10,8,2,0.82) 0%, rgba(10,8,2,0.96) 100%), linear-gradient(to bottom, rgba(10,8,2,0.9) 0%, rgba(10,8,2,0.8) 50%, rgba(10,8,2,0.98) 100%) !important; }
+        html[data-theme="gold"] #splash-screen { background:radial-gradient(circle at 50% 45%, #2c2715 0%, #0a0802 70%); }
+
+        html[data-theme="cyan"] { --bg-color:#0e2228; --theme-accent:#06b6d4; }
+        html[data-theme="cyan"] .app-bg { background:#051114; }
+        html[data-theme="cyan"] .glass-card { background:#132e36; }
+        html[data-theme="cyan"] .glass-card:hover { background:#193c46; }
+        html[data-theme="cyan"] .glass { background:#132e36; }
+        html[data-theme="cyan"] .glass-hover:hover { background:#193c46; }
+        html[data-theme="cyan"] .glass-dock { background:#11282e; }
+        html[data-theme="cyan"] .nav-blur { background:rgba(7,20,23,0.96); }
+        html[data-theme="cyan"] .player-bg-container { background-color:#040c0e; }
+        html[data-theme="cyan"] .player-bg-vignette { background:linear-gradient(to bottom, rgba(5,17,20,0.55) 0%, rgba(5,17,20,0.25) 45%, rgba(5,17,20,0.8) 100%); }
+        html[data-theme="cyan"] #lyrics-overlay { background-color:#030a0c !important; }
+        html[data-theme="cyan"] #lyrics-overlay .player-bg-vignette { background:radial-gradient(circle at center, rgba(3,10,12,0.82) 0%, rgba(3,10,12,0.96) 100%), linear-gradient(to bottom, rgba(3,10,12,0.9) 0%, rgba(3,10,12,0.8) 50%, rgba(3,10,12,0.98) 100%) !important; }
+        html[data-theme="cyan"] #splash-screen { background:radial-gradient(circle at 50% 45%, #122b33 0%, #030a0c 70%); }
+
+        html[data-theme="teal"] { --bg-color:#0e2421; --theme-accent:#14b8a6; }
+        html[data-theme="teal"] .app-bg { background:#051210; }
+        html[data-theme="teal"] .glass-card { background:#13302c; }
+        html[data-theme="teal"] .glass-card:hover { background:#193f3a; }
+        html[data-theme="teal"] .glass { background:#13302c; }
+        html[data-theme="teal"] .glass-hover:hover { background:#193f3a; }
+        html[data-theme="teal"] .glass-dock { background:#112826; }
+        html[data-theme="teal"] .nav-blur { background:rgba(7,21,19,0.96); }
+        html[data-theme="teal"] .player-bg-container { background-color:#030d0c; }
+        html[data-theme="teal"] .player-bg-vignette { background:linear-gradient(to bottom, rgba(5,18,16,0.55) 0%, rgba(5,18,16,0.25) 45%, rgba(5,18,16,0.8) 100%); }
+        html[data-theme="teal"] #lyrics-overlay { background-color:#020b0a !important; }
+        html[data-theme="teal"] #lyrics-overlay .player-bg-vignette { background:radial-gradient(circle at center, rgba(2,11,10,0.82) 0%, rgba(2,11,10,0.96) 100%), linear-gradient(to bottom, rgba(2,11,10,0.9) 0%, rgba(2,11,10,0.8) 50%, rgba(2,11,10,0.98) 100%) !important; }
+        html[data-theme="teal"] #splash-screen { background:radial-gradient(circle at 50% 45%, #122f2b 0%, #020b0a 70%); }
     </style>
+    <script>
+        // Terapkan warna tema tersimpan sedini mungkin (anti flash)
+        try { var __appTheme = localStorage.getItem('app_theme'); if (__appTheme && __appTheme !== 'default') document.documentElement.setAttribute('data-theme', __appTheme); } catch(e) {}
+    </script>
 </head>
 <body class="h-[100dvh] w-full bg-transparent text-white font-sans overflow-hidden flex flex-col">
     <div class="app-bg"></div>
@@ -549,6 +680,7 @@
     <script src="/artist.js?v=15"></script>
     <script src="/album.js?v=15"></script>
     <script src="/app.js?v=15"></script>
+    <script src="/theme.js?v=15"></script>
     <script>(function () {
   document.addEventListener('visibilitychange', function () {
     document.documentElement.classList.toggle('tab-hidden', document.hidden);
