@@ -1,4 +1,4 @@
-const CACHE_STATIC_NAME = 'Musicfyrik-static-v2';
+const CACHE_STATIC_NAME = 'Musicfyrik-static-v3';
 const CACHE_DATA_NAME = 'Musicfyrik-api-v2';
 
 const STATIC_ASSETS = [
@@ -18,6 +18,7 @@ const STATIC_ASSETS = [
   '/album.js',
   '/artist.js',
   '/profile.js',
+  '/theme.js',
   'https://cdn.tailwindcss.com',
   'https://unpkg.com/lucide@latest'
 ];
