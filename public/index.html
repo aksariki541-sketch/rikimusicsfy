@@ -500,6 +500,75 @@
             transition-duration: 500ms !important;
             transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1) !important;
         }
+
+        /* ===== PREMIUM FULL PLAYER (iOS Music Style) ===== */
+        #full-player {
+            --fp-accent: #ffffff;
+            --fp-accent-soft: rgba(255,255,255,0.35);
+            --fp-glow: rgba(244,63,94,0.5);
+            background: radial-gradient(circle at 50% 28%, var(--fp-glow) 0%, rgba(10,11,16,0.6) 55%, rgba(6,7,10,0.92) 100%) !important;
+        }
+
+        /* Dynamic color tint layer over the blurred artwork */
+        #full-bg-glow {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            transition: background 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .fp-cover-wrap {
+            position: relative;
+            border-radius: 1.5rem;
+            transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        @keyframes fpCoverPop {
+            0% { transform: scale(0.9); opacity: 0.4; }
+            60% { transform: scale(1.03); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .fp-cover-pop { animation: fpCoverPop 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+        /* Play button pulsing halo */
+        #full-play-btn-wrap { transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease; }
+        @keyframes fpPlayGlow {
+            0%, 100% { box-shadow: 0 10px 34px var(--fp-accent-soft); }
+            50% { box-shadow: 0 14px 46px var(--fp-accent-soft), 0 0 0 6px rgba(255,255,255,0.06); }
+        }
+        #full-play-btn-wrap.playing { animation: fpPlayGlow 2.6s ease-in-out infinite; }
+
+        /* Bottom sheet */
+        @keyframes fpSheetUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        @keyframes fpOverlayIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .fp-sheet-panel {
+            background: linear-gradient(180deg, rgba(28,30,40,0.92), rgba(14,15,22,0.97));
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            box-shadow: 0 -24px 60px rgba(0,0,0,0.6);
+        }
+        .fp-sheet-overlay { animation: fpOverlayIn 0.25s ease-out both; }
+        .fp-sheet-panel { animation: fpSheetUp 0.32s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+        /* Share card */
+        @keyframes fpFadeScale {
+            from { opacity: 0; transform: scale(0.86) translateY(14px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .fp-share-card { animation: fpFadeScale 0.34s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+        /* Range inputs inside full player: keep native but invisible (overlay style preserved) */
+        #seek-bar, #vol-bar { -webkit-tap-highlight-color: transparent; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .fp-cover-pop, .fp-sheet-panel, .fp-share-card, #full-play-btn-wrap.playing { animation: none !important; }
+        }
     </style>
 </head>
 <body class="h-[100dvh] w-full bg-transparent text-white font-sans overflow-hidden flex flex-col">
