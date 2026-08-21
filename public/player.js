@@ -624,6 +624,7 @@ function UB(){
 
     if(playWrap){
         playWrap.style.backgroundColor = accent;
+        if(S.ip){ playWrap.classList.add('playing'); } else { playWrap.classList.remove('playing'); }
     }
     if(mi){
         mi.style.borderColor = accent + '88';
@@ -2126,53 +2127,56 @@ function applyPreset(presetName) {
     showToast('Equalizer: ' + presetName);
 }
 
+function withAlpha(color, a) {
+    var m = String(color || '').match(/rgba?\(\s*(\d+)\s*[, ]\s*(\d+)\s*[, ]\s*(\d+)/);
+    if (m) return 'rgba(' + m[1] + ',' + m[2] + ',' + m[3] + ',' + a + ')';
+    return 'rgba(244,63,94,' + a + ')';
+}
+
 function openShareCard() {
     if (!S.ct) {
         showToast('Putar lagu terlebih dahulu');
         return;
     }
-    
+
+    var accent = S.currentAccentColor || '#f43f5e';
+    var cover = toHDCover(S.ct.cover, S.ct.videoId || S.ct.id);
+
     var popup = document.createElement('div');
     popup.id = 'share-card-popup';
-    popup.className = 'fixed inset-0 z-[300] flex items-center justify-center bg-black/75 px-4';
+    popup.className = 'fixed inset-0 z-[320] flex items-center justify-center bg-black/80 backdrop-blur-sm px-4 fp-sheet-overlay';
     popup.onclick = function(e) { if(e.target === popup) popup.remove(); };
-    
-    popup.innerHTML = '<div class="w-full max-w-sm rounded-3xl p-6 border border-white/10 glass-strong text-center" style="animation:slideUp 0.3s ease-out forwards; background: var(--bg-color);">' +
-        '<div class="flex justify-between items-center mb-4">' +
-            '<h3 class="font-bold text-lg text-white">Bagikan Lagu</h3>' +
-            '<button onclick="document.getElementById(\'share-card-popup\').remove()" class="text-[#a0a5b0] hover:text-white p-1"><i data-lucide="x" class="w-5 h-5"></i></button>' +
-        '</div>' +
-        
-        '<div id="share-card-preview" class="p-6 rounded-2xl mb-6 flex flex-col items-center gap-4 relative overflow-hidden" ' +
-            'style="box-shadow: var(--nm-shadow-inset); background: var(--bg-color); border: 1px solid var(--border-color);">' +
-            '<img src="' + S.ct.cover + '" class="w-48 h-48 object-cover rounded-2xl  border border-white/5" />' +
-            '<div class="w-full truncate">' +
-                '<p class="text-white font-black text-lg truncate">' + es(S.ct.title) + '</p>' +
-                '<p class="text-[#a0a5b0] text-xs font-bold mt-1 truncate">' + es(S.ct.artist) + '</p>' +
+
+    popup.innerHTML = '<div class="fp-share-card w-full max-w-sm rounded-[28px] overflow-hidden border border-white/10 shadow-2xl relative" style="background:linear-gradient(168deg, ' + withAlpha(accent, 0.22) + ' 0%, rgba(16,17,24,0.96) 52%, #0b0c12 100%);">' +
+        '<button onclick="document.getElementById(\'share-card-popup\').remove()" class="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center active:scale-90 transition cursor-pointer"><i data-lucide="x" class="w-4 h-4"></i></button>' +
+        '<div class="p-6 pt-9 flex flex-col items-center">' +
+            '<img src="' + cover + '" class="w-52 h-52 object-cover rounded-2xl border border-white/10 shadow-2xl" onerror="this.src=\'' + FI + '\'" />' +
+            '<div class="w-full text-center mt-5">' +
+                '<p class="text-white font-black text-lg leading-tight line-clamp-2">' + es(S.ct.title) + '</p>' +
+                '<p class="text-white/60 text-sm font-semibold mt-1 truncate">' + es(S.ct.artist) + '</p>' +
             '</div>' +
-            '<div class="w-full h-1 bg-white/10 rounded-full mt-2 overflow-hidden"><div class="h-full bg-gradient-to-r from-gray-400 to-white w-2/3"></div></div>' +
-            '<div class="flex justify-between w-full text-[9px] text-[#6b7280] font-mono mt-1"><span>1:48</span><span>2:56</span></div>' +
-            '<div class="border-t border-white/5 w-full pt-3 mt-1 flex items-center justify-center gap-1.5">' +
-                '<i data-lucide="music" class="w-3.5 h-3.5 text-[#a0a5b0]"></i>' +
-                '<span class="text-[10px] text-[#6b7280] tracking-wider font-semibold uppercase">Musicfyrik Web App</span>' +
+            '<div class="w-full h-1 bg-white/15 rounded-full mt-5 overflow-hidden"><div class="h-full rounded-full" style="width:60%;background:' + accent + ';"></div></div>' +
+            '<div class="flex justify-between w-full text-[10px] text-white/50 font-mono mt-1.5"><span>' + fm(S.pt) + '</span><span>' + fm(S.pd) + '</span></div>' +
+            '<div class="mt-5 w-full border-t border-white/10 pt-4 flex items-center justify-center gap-2">' +
+                '<i data-lucide="music" class="w-4 h-4 text-white/60"></i>' +
+                '<span class="text-[11px] text-white/60 tracking-[0.18em] font-bold uppercase">MusifyRik</span>' +
             '</div>' +
         '</div>' +
-        
-        '<div class="space-y-2.5">' +
-            '<button onclick="downloadShareCard()" class="w-full btn-chrome py-3 flex items-center justify-center gap-2 font-bold">' +
-                '<i data-lucide="download" class="w-4 h-4"></i> Unduh Gambar Card' +
+        '<div class="px-6 pb-6 space-y-2.5">' +
+            '<button onclick="triggerNativeShare()" class="w-full py-3.5 rounded-full font-bold flex items-center justify-center gap-2 active:scale-95 transition cursor-pointer" style="background:' + accent + ';color:#0a0b10;box-shadow:0 8px 24px ' + withAlpha(accent, 0.35) + ';">' +
+                '<i data-lucide="share-2" class="w-4 h-4"></i> Bagikan' +
             '</button>' +
             '<div class="grid grid-cols-2 gap-2">' +
-                '<button onclick="copyShareLink()" class="btn-chrome py-3 text-sm font-semibold flex items-center justify-center gap-1.5">' +
+                '<button onclick="copyShareLink()" class="py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-1.5 bg-white/10 hover:bg-white/15 border border-white/10 text-white active:scale-95 transition cursor-pointer">' +
                     '<i data-lucide="copy" class="w-4 h-4"></i> Salin Link' +
                 '</button>' +
-                '<button onclick="triggerNativeShare()" class="btn-chrome py-3 text-sm font-semibold flex items-center justify-center gap-1.5">' +
-                    '<i data-lucide="share" class="w-4 h-4"></i> Bagikan' +
+                '<button onclick="downloadShareCard()" class="py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-1.5 bg-white/10 hover:bg-white/15 border border-white/10 text-white active:scale-95 transition cursor-pointer">' +
+                    '<i data-lucide="download" class="w-4 h-4"></i> Unduh' +
                 '</button>' +
             '</div>' +
         '</div>' +
     '</div>';
-    
+
     document.body.appendChild(popup);
     lucide.createIcons();
 }

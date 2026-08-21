@@ -40,12 +40,18 @@ var MP={
                     <div id="mini-artist" class="text-[#a0a5b0] text-[11px] truncate mt-0.5"></div>
                 </div>
 
-                <!-- Controls: Play/Pause and Heart -->
-                <div class="flex items-center gap-1.5 z-10 shrink-0">
+                <!-- Controls: Previous, Play/Pause, Next, Heart -->
+                <div class="flex items-center gap-1 z-10 shrink-0">
+                    <button onclick="PV(); if(typeof event !== 'undefined') event.stopPropagation();" class="text-white/80 hover:text-white active:scale-90 p-1.5 cursor-pointer rounded-full hover:bg-white/10 transition-all" title="Lagu Sebelumnya">
+                        <i data-lucide="skip-back" class="w-4 h-4 fill-current"></i>
+                    </button>
                     <button onclick="TP(); if(typeof event !== 'undefined') event.stopPropagation();" class="text-white active:scale-90 p-0.5 cursor-pointer" title="Putar/Jeda">
                         <div id="mini-play-btn" class="w-9 h-9 rounded-full flex items-center justify-center transition-all bg-white/10 border border-white/20 hover:bg-white/20">
                             <i data-lucide="play" class="w-4 h-4 fill-current ml-0.5"></i>
                         </div>
+                    </button>
+                    <button onclick="NX(); if(typeof event !== 'undefined') event.stopPropagation();" class="text-white/80 hover:text-white active:scale-90 p-1.5 cursor-pointer rounded-full hover:bg-white/10 transition-all" title="Lagu Berikutnya">
+                        <i data-lucide="skip-forward" class="w-4 h-4 fill-current"></i>
                     </button>
                     <button id="mini-like-btn" onclick="toggleCurrentLike(); if(typeof event !== 'undefined') event.stopPropagation();" class="text-[#a0a5b0] hover:text-rose-400 active:scale-90 p-1.5 cursor-pointer" title="Sukai Lagu">
                         <i data-lucide="heart" class="w-5 h-5"></i>
@@ -189,7 +195,23 @@ var MP={
     },
     updateBeats(track) {
         if (!track) return;
+        // Apply deterministic hash-based palette instantly as a fallback
         var palette = MP.getTrackColors(track);
         MP.applyColors(palette);
+
+        // Then try to extract the real dominant colors from the cover artwork
+        var cover = toHDCover(track.cover, track.videoId || track.id);
+        var img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = function() {
+            try {
+                var extracted = MP.extractFromImage(img);
+                if (extracted && extracted.length >= 2) {
+                    MP.applyColors(extracted);
+                }
+            } catch(e) {}
+        };
+        img.onerror = function() {};
+        img.src = cover;
     }
 };
