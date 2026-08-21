@@ -68,7 +68,7 @@ var FullPlayer={
                                 <svg class="w-8 h-8 opacity-40 mb-2 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
                                 <span>Lirik tidak tersedia</span>
                             </div>
-                            <div id="full-inline-lyrics-content" class="min-h-full flex flex-col justify-center text-left"></div>
+                            <div id="full-inline-lyrics-content" class="min-h-full text-left"></div>
                         </div>
 
                         <!-- Floating Fullscreen Lyrics & Sync Bar (at bottom of compact box) -->
@@ -184,7 +184,7 @@ var FullPlayer={
         </div>`;
 
                 gid('lyrics-container').innerHTML=`
-        <div id="lyrics-overlay" class="fixed z-[200] text-white" style="display:none;transition:transform 0.35s ease-out;transform:translateY(105%);left:0;right:0;bottom:0;top:auto;width:100%;max-width:640px;margin:0 auto;height:62vh;overflow:hidden;border-radius:28px 28px 0 0;border:1px solid rgba(255,255,255,0.10);box-shadow:0 -20px 60px rgba(0,0,0,0.6);touch-action:none;">
+        <div id="lyrics-overlay" class="fixed flex flex-col z-[200] text-white" style="display:none;transition:transform 0.35s ease-out;transform:translateY(105%);left:0;right:0;bottom:0;top:auto;width:100%;max-width:640px;margin:0 auto;height:62vh;overflow:hidden;border-radius:28px 28px 0 0;border:1px solid rgba(255,255,255,0.10);box-shadow:0 -20px 60px rgba(0,0,0,0.6);touch-action:none;">
 
             <!-- Blurred Artwork Background Container -->
             <div class="player-bg-container">
